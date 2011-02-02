@@ -1,0 +1,30 @@
+<?php
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+require_once("inc/db.inc");
+
+$gAuthkey = getAuthkey();
+$gTitle = "JDrop admin";
+
+createTables();
+?>
+<!doctype html>
+<html>
+
+<head>
+<title><?php echo $gTitle ?></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<?php insertStyles() ?>
+
+</head>
+
+<body>
+
+<?php insertHeader($gTitle) ?>
+
+<a href="appregister">App Register</a>
+
+</body>
+</html>
+

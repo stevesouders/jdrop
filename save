@@ -1,0 +1,51 @@
+<?php
+require_once("inc/db.inc");
+require_once("inc/auth.inc");
+
+$gAuthkey = getAuthkey();
+
+if ( ! $gAuthkey ) {
+	echo <<<OUTPUT
+<html>
+<body>
+<script type="text/javascript">
+alert("You're not currently logged in to JDrop. Please go to http://jdrop.org/ and login.");
+</script>
+</body>
+</html>
+OUTPUT;
+}
+else if ( $gAuthkey && array_key_exists("appname", $_POST) && array_key_exists("json", $_POST) ) {
+	$appname = substr($_POST["appname"], 0, 255);
+	if ( $appname === doSimpleQuery("select appname from apps where appname='$appname';") ) {
+		// Only save data from registered apps.
+		$json = mysqlEscape($_POST["json"]);
+		$title = ( array_key_exists("title", $_POST) ? substr($_POST["title"], 0, 255) : "" );
+		$version = ( array_key_exists("version", $_POST) ? substr($_POST["version"], 0, 32) : "" );
+		$summary = ( array_key_exists("summary", $_POST) ? substr($_POST["summary"], 0, 255) : "" );
+		doSimpleCommand("insert into $gDataTable set createdate=" . time() . 
+						", authkey='$gAuthkey'" .
+						", referer='" . substr($_SERVER["HTTP_REFERER"], 0, 255) . "'" .
+						", browser='" . substr($_SERVER["HTTP_USER_AGENT"], 0, 255) . "'" .
+						", title='$title'" .
+						", version='$version'" .
+						", summary='$summary'" .
+						", appname='$appname'" .
+						", json='$json';");
+
+		header("HTTP/1.0 204 No Content");
+	}
+	else {
+		error_log("ERROR: save: appname '$appname' not found in registry");
+		echo <<<OUTPUT
+<html>
+<body>
+<script type="text/javascript">
+alert("Your data wasn't saved - there's no app named \"$appname\" registered at JDrop.");
+</script>
+</body>
+</html>
+OUTPUT;
+	}
+}
+?>

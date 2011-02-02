@@ -1,0 +1,72 @@
+<?php 
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+
+$gTitle = "JDrop apps";
+?>
+<!doctype html>
+<html>
+
+<head>
+<title><?php echo $gTitle ?></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="mobile phone developer software development debug performance">
+
+<?php insertStyles() ?>
+
+<style>
+H2 { margin-top: 40px; }
+</style>
+
+</head>
+
+<body>
+
+<?php insertHeader($gTitle) ?>
+
+<p>
+Right now JDrop is focused on mobile bookmarklets. 
+This version of the Mobile Perf bookmarklet (see <a href="http://stevesouders.com/mobileperf/mobileperfbkm.php">original site</a>)
+contains bookmarklets that have been converted to use JDrop.
+</p>
+
+<style>
+OL, OL LI { margin: 0 0 0 10px; padding: 0; }
+</style>
+<table cellpadding=0 cellspacing=0 border=0 style="margin-left: 20px;">
+<tr>
+<td valign=top style="padding-right: 8px;"><strong>DESKTOP:</strong></td>
+<td valign=top>Drag this link to your bookmarks toolbar or add it to your favorites:
+<div>
+<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with JDrop
+<img border=0 src="http://stevesouders.com/mobileperf/drag-this-link-107x32.png" width=107 height=32 style="vertical-align: bottom;"></a>
+</div>
+</td>
+</tr>
+
+<tr>
+<td colspan=2>&nbsp;</td>
+</tr>
+
+<tr>
+<td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
+<td valign=top>
+<div>
+<ol>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with JDrop</a>
+  <li> bookmark this page
+  <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
+</ol>
+<span style="font-size: 0.9em;">(see an example of <a href="iphonesteps.php">step-by-step instructions</a>)</span>
+</div>
+</td>
+</tr>
+
+</table>
+
+
+
+</body>
+
+</html>
+

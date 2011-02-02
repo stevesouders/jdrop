@@ -1,0 +1,129 @@
+<?php
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+require_once("inc/db.inc");
+
+$gAuthkey = getAuthkey();
+$gTitle = "JDrop app register";
+?>
+<!doctype html>
+<html>
+
+<head>
+<title><?php echo $gTitle ?></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<?php insertStyles() ?>
+
+<style>
+TH { border-bottom: 1px solid #000; padding: 2px 4px; }
+TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
+</style>
+
+</head>
+
+<body>
+
+<?php insertHeader($gTitle) ?>
+
+<?php
+$action = ( array_key_exists("action", $_GET) ? $_GET['action'] : "" );
+if ( "add" === $action ) {
+	$appname = $_GET['appname'];
+	$jsurl = $_GET['jsurl'];
+	$callback = $_GET['callback'];
+	$format = $_GET['format'];
+	$formatkey = $_GET['formatkey'];
+
+	if ( $appname && $jsurl ) {
+		doSimpleCommand("replace into apps set appname='$appname', jsurl='$jsurl', callback='$callback', format='$format', formatkey='$formatkey';");
+		echo "<p class=warning>\"$appname\" saved</p>\n";
+	}
+}
+else if ( "remove" === $action ) {
+	$appname = $_GET['appname'];
+	if ( $appname ) {
+		doSimpleCommand("delete from apps where appname='$appname';");
+		echo "<p class=warning>\"$appname\" removed</p>\n";
+	}
+}
+?>
+
+<style>
+#addform { margin-top: 40px; }
+#addform TD { font-size: 0.9em; padding: 4px; border: 0; }
+#applist { margin-top: 40px; }
+</style>
+
+<div>
+<form id=addform onsubmit="return confirmEdit()">
+<table cellpadding=0 cellspacing=0 border=0>
+  <tr> <td>App Name:</td> <td><input id=appname name=appname size=30></td> </tr>
+  <tr> <td>Script URL:</td> <td><input id=jsurl name=jsurl size=65></td> </tr>
+  <tr> <td>Callback Function:</td> <td><input id=callback name=callback size=30></td> </tr>
+  <tr> <td>Format:</td> <td><input id=format name=format size=20></td> </tr>
+  <tr> <td>Format Key:</td> <td><input id=formatkey name=formatkey size=20></td> </tr>
+  <tr> <td colspan=2 align=center><input type=submit value="Save"> <a href="devdocs#appregister" style="margin-left: 20px; font-size: 0.9em;" target="_blank">help</a></td> </tr>
+<input type=hidden name=action value="add">
+</table>
+</form>
+
+
+<?php 
+$result = doQuery("select appname, jsurl, callback, format, formatkey from apps order by appname asc;");
+if ( $result ) {
+	$bFirst = true;
+	while ( $row = mysql_fetch_assoc($result) ) {
+		if ( $bFirst ) {
+			$bFirst = false;
+			echo <<<OUTPUT
+<div style="width: 1200px;">
+<table id=applist cellpadding=0 cellspacing=0 border=0>
+  <tr> <th>App Name</th> <th>Script URL</th> <th>Callback Function</th> <th>Format</th> <th>Format Key</th> <th>&nbsp;</th> </tr>
+OUTPUT;
+		}
+		$appname = $row['appname'];
+		$jsurl = $row['jsurl'];
+		$callback = $row['callback'];
+		$format = $row['format'];
+		$formatkey = $row['formatkey'];
+		echo "  <tr id='$appname'> <td>$appname</td> <td><a href='$jsurl'>$jsurl</a></td> <td>$callback</td> <td>$format</td> <td>$formatkey</td> <td><a href='#' onclick='doEdit(\"$appname\")'>edit</a> &nbsp;&nbsp; <a href='appregister?action=remove&appname=$appname' onclick='return confirmEdit()'>remove</a></td> </tr>\n";
+	}
+	mysql_free_result($result);
+	if ( ! $bFirst ) {
+		echo "</table>\n</div>\n\n";
+	}
+}
+?>
+
+<script>
+function confirmEdit() {
+	return confirm('During development access restrictions to edit the App Register are disabled. Please do not make any changes unless you are authorized to do so. Do you really want to make this change?');
+}
+
+
+function doEdit(id) {
+	var tr = document.getElementById(id);
+	if ( ! tr ) {
+		return;
+	}
+
+	var aTds = tr.getElementsByTagName('td');
+	var appname = aTds[0].innerHTML;
+	var jsurl = aTds[1].getElementsByTagName('a')[0].href;
+	var callback = aTds[2].innerHTML;
+	var format = aTds[3].innerHTML;
+	var formatkey = aTds[4].innerHTML;
+
+	var addform = document.getElementById('addform');
+	addform.appname.value = appname;
+	addform.jsurl.value = jsurl;
+	addform.callback.value = callback;
+	addform.format.value = format;
+	addform.formatkey.value = formatkey;
+}
+</script>
+
+</body>
+</html>
+

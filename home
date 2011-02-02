@@ -1,0 +1,66 @@
+<?php 
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+
+$gTitle = "JDrop";
+?>
+<!doctype html>
+<html>
+
+<head>
+<title><?php echo $gTitle ?></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="mobile json phone developer software development debug performance">
+
+<?php insertStyles() ?>
+
+</head>
+
+<body>
+
+<?php insertHeader($gTitle . "<span style='margin-left: 20px; font-size: 24px; font-style: italic; font-weight: normal;'>JSON in the cloud</span>") ?>
+
+<p>
+JDrop provides a place to store JSON data up in the cloud.
+The initial application is for storing performance data gathered from mobile devices.
+It's hard to analyze large amounts of information (HTTP waterfall charts, HTTP headers, document source, etc.) on a mobile device.
+JDrop lets you <em>gather</em> this data on the mobile device but <em>analyze</em> it remotely on a larger screen.
+</p>
+
+
+<div style="margin-top: 40px;">
+<?php insertLoginForm() ?>
+</div>
+
+<style>
+OL > LI { margin-bottom: 8px; }
+</style>
+
+<div style="font-weight: bold; margin-top: 40px; font-size: 1.3em;">
+How to start:
+</div>
+<ol>
+  <li> On your mobile device:
+    <ul style="margin-top: 0;">
+      <li> login at <a href="http://jdrop.org/">http://jdrop.org/</a>
+      <li> install any of the <a href="apps">apps</a> that use JDrop
+      <li> run the app and save data to JDrop
+    </ul>
+  <li> On your desktop or laptop:
+    <ul style="margin-top: 0;">
+      <li> login at <a href="http://jdrop.org/">http://jdrop.org/</a> using the same "username" you used on the mobile device
+      <li> view the <a href="myjson">JSON data</a> that you generated
+    </ul>
+</ol>
+
+
+
+<p style="margin-top: 40px;">
+Checkout the <a href="example">example use case</a> for screenshots and more information.
+</p>
+
+
+</body>
+
+</html>
+
