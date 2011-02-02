@@ -1,0 +1,100 @@
+<?php
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+require_once("inc/db.inc");
+require_once("inc/uaparser.inc");
+
+$gTitle = "JDrop view";
+$dataid = ( array_key_exists('id', $_GET) ? $_GET['id'] : "" );
+$gAuthkey = getAuthkey();
+?>
+<!doctype html>
+<html>
+<head>
+<title><?php echo $gTitle ?></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<?php insertStyles() ?>
+
+</head>
+
+<body>
+
+<?php insertHeader($gTitle) ?>
+
+<a href="myjson" class=ahover>&larr; back to myJSON</a>
+
+<?php 
+if ( ! $gAuthkey ) {
+	insertLoginForm();
+	echo <<<OUTPUT
+<p class=warning>
+Please "login" to view results.
+</p>
+OUTPUT;
+}
+else if ( $dataid ) {
+	$row = doRowQuery("select createDate, referer, appname, json, title, browser from $gDataTable where dataid=$dataid;");
+	if ( $row ) {
+		$date = $row['createDate'];
+		$date = date("n/j/Y H:i", $date);
+		$referer = $row['referer'];
+		$title = ( $row['title'] ? $row['title'] : $referer );
+		$browser = $row['browser'];
+		$appname = $row['appname'];
+		$json = $row['json'];
+		$json = str_ireplace('</script>', '<\/script>', $json); // needed this for Docsource
+	}
+
+	$row = doRowQuery("select jsurl, callback from apps where appname='$appname';");
+	if ( $row ) {
+		$jsurl = $row['jsurl'];	
+		$callback = $row['callback'];	
+	}
+
+	if ( $appname && $json && $jsurl && $callback ) {
+		echo <<<OUTPUT
+<p>
+app: $appname
+<br>
+date: $date
+<br>
+web page: <a href="$referer">$title</a>
+<br>
+browser: $browser
+</p>
+<script src="json2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+JDROPVIEW = true; // tell the bookmarklet not to run
+</script>
+
+<script src="$jsurl" type="text/javascript"></script>
+
+<script type="text/javascript">
+try {
+	var jsonObj = $json;
+	$callback(jsonObj);
+}
+catch(err) {
+	alert("ERROR: " + err);
+}
+</script>
+		
+OUTPUT;
+	}
+}
+else {
+	// no $dataid
+	echo <<<OUTPUT
+<p class=warning>
+Select some data to view from your <a href="myjson">myJSON</a> list.
+</p>
+OUTPUT;
+}
+?>
+
+
+</body>
+
+</html>

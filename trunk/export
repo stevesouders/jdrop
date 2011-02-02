@@ -1,0 +1,56 @@
+<?php
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+require_once("inc/db.inc");
+require_once("inc/uaparser.inc");
+
+$gTitle = "JDrop export";
+$dataid = ( array_key_exists('id', $_GET) ? $_GET['id'] : "" );
+$gAuthkey = getAuthkey();
+
+// Given a format, find the content-type and file extension
+$gFormats = array(
+				  "HTML" => array("text/html", "html"),
+				  "HAR" =>  array("application/json", "har"),
+				  "JSON" => array("application/json", "txt")
+				  );
+
+if ( $gAuthkey && $dataid ) {
+	$row = doRowQuery("select $gDataTable.appname, json, version, format, formatkey from $gDataTable, $gAppsTable where dataid=$dataid and $gDataTable.appname = $gAppsTable.appname;");
+	if ( $row ) {
+		$appname = $row['appname'];
+		$json = $row['json'];
+		$version = $row['version'];
+		$format = $row['format'];
+		$formatkey = $row['formatkey'];
+		list($contentType, $fileExt) = getFormat($format);
+
+		if ( $json && $appname && $contentType) {
+			$filename = $appname . "_$dataid.$fileExt";
+			header("Content-Type: $contentType; name=\"$filename\""); 
+			header("Content-Disposition: inline; filename=\"$filename\"");
+
+			$sOutput = $json;
+			if ( $formatkey ) {
+				$jsonObj = json_decode($json);
+				$sOutput = $jsonObj->{ $formatkey };
+			}
+
+			echo $sOutput;
+		}
+	}
+}
+
+
+
+function getFormat($format) {
+	global $gFormats;
+
+	if ( $format && array_key_exists($format, $gFormats) ) {
+		return $gFormats[$format];
+	}
+	else { 
+		return $gFormats["JSON"];
+	}
+}
+?>
