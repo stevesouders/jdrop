@@ -1,0 +1,33 @@
+# Make home the default
+DirectoryIndex home
+
+Options -Indexes
+
+# Add a far future Expires header to .gif, .jpg, .css and .js.
+<FilesMatch "\.(png|gif|jpg|js|css|ico)$">
+  ExpiresActive On
+  ExpiresDefault "access plus 10 years"
+  Header set ETag ""
+</FilesMatch>
+
+# Compress html, XML, css and js and fonts
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript application/javascript font/ttf application/octet-stream
+
+<FilesMatch "(about|admin|appregister|apps|devdocs|export|home|myjson|remove|save|view)">
+  SetHandler application/x-httpd-php5
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+
+<FilesMatch "(admin|appregister)">
+  AuthType Basic 
+  AuthUserFile /home/sowrock/jdrop.org/.htpasswd
+  AuthName "Restricted" 
+  require valid-user
+</FilesMatch>
+
+<FilesMatch "checkauth.js">
+  SetHandler application/x-httpd-php5
+  Header set Content-Type "application/javascript"
+  Header set Cache-Control "no-cache"
+  Header set Expires ""
+</FilesMatch> 
