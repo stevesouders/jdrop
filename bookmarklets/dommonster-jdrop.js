@@ -76,9 +76,9 @@
 
 	  // submit the form and cleanup
 	  document.body.appendChild(jdropform);
+	  jdropif.onload = function() { document.body.removeChild(jdropform); document.body.removeChild(jdropif); };
+	  jdropif.onerror = function() { document.body.removeChild(jdropform); document.body.removeChild(jdropif); };
 	  jdropform.submit();
-	  document.body.removeChild(jdropform);
-	  setTimeout(function() { document.body.removeChild(jdropif); }, 500);
   };
 
   JR.JDropCallback = function(jsonobj) {
