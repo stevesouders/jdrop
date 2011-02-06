@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 
@@ -27,10 +27,11 @@ It's hard to analyze large amounts of information (HTTP waterfall charts, HTTP h
 JDrop lets you <em>gather</em> this data on the mobile device but <em>analyze</em> it remotely on a larger screen.
 </p>
 
-
-<div style="margin-top: 40px;">
-<?php insertLoginForm() ?>
-</div>
+<?php if (!getAuthkey()) { ?>
+  <div style="margin-top: 40px;">
+    <a href='/oauth'>Login with Twitter</a>
+  </div>
+<?php } ?>
 
 <style>
 OL > LI { margin-bottom: 8px; }
@@ -63,4 +64,3 @@ Checkout the <a href="example">example use case</a> for screenshots and more inf
 </body>
 
 </html>
-
