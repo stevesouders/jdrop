@@ -66,6 +66,48 @@ OL, OL LI { margin: 0 0 0 10px; padding: 0; }
 
 
 
+<p style="margin-top: 100px;">
+If needed, here are links to the individual bookmarklets for mobile.
+</p>
+
+<table cellpadding=0 cellspacing=0 border=0 style="margin-left: 20px;">
+
+<tr>
+<td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
+<td valign=top>
+<ol>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/pageresources-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Page Resources with JDrop</a>
+  <li> bookmark this page
+  <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
+</ol>
+</td>
+</tr>
+
+<tr>
+<td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
+<td valign=top>
+<ol>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/docsource-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Docsource with JDrop</a>
+  <li> bookmark this page
+  <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
+</ol>
+</td>
+</tr>
+
+<tr>
+<td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
+<td valign=top>
+<ol>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://jdrop.org/bookmarklets/dommonster-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">DOM Monster with JDrop</a>
+  <li> bookmark this page
+  <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
+</ol>
+</td>
+</tr>
+
+</table>
+
+
 </body>
 
 </html>
