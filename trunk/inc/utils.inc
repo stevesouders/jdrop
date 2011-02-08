@@ -17,8 +17,9 @@ OUTPUT;
 
 
 function insertHeader($title) {
-	$authkey = getAuthkey();
+	$authkey = getAuthkey(true);
 	$welcome = ( $authkey ? "<span id=welcomemsg style='font-style: italic; margin-right: 20px;'>" . getWelcome($authkey) . "</span> " : "" );
+  $logout = ($authkey ? '&nbsp;|&nbsp;<a href="logout">logout</a>' : '');
 
 	echo <<<OUTPUT
 <div style="float: right; font-size: 0.9em;">
@@ -30,7 +31,7 @@ $welcome
 <a href="apps">apps</a>
 &nbsp;|&nbsp;
 <a href="about">about</a>
-</div>
+$logout</div>
 <h1><img src="images/logo-59x59.png" width=59 height=59><nobr>$title</nobr></h1>
 
 OUTPUT;

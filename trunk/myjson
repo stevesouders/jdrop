@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
@@ -37,7 +37,7 @@ function doDelete(dataid) {
 
 <?php insertHeader($gTitle) ?>
 
-<?php 
+<?php
 if ( ! $gAuthkey ) {
 	insertLoginForm();
 	echo <<<OUTPUT
@@ -49,10 +49,10 @@ OUTPUT;
 ?>
 
 <h2>
-JSON for "<?php echo $gAuthkey ?>":
+JSON for <?php echo getAuthkey(true); ?>:
 </h2>
 
-<?php 
+<?php
 $search = $appchecked = $sitechecked = $urlchecked = $browserchecked = $jsonchecked = "";
 $sConds = "";
 if ( array_key_exists("s", $_GET) ) {
@@ -148,4 +148,3 @@ document.getElementsByTagName('head')[0].appendChild(script);
 </body>
 
 </html>
-
