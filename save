@@ -33,7 +33,15 @@ else if ( $gAuthkey && array_key_exists("appname", $_POST) && array_key_exists("
 						", appname='$appname'" .
 						", json='$json';");
 
-		header("HTTP/1.0 204 No Content");
+		echo <<<OUTPUT
+<html>
+<body>
+<script type="text/javascript">
+alert("Success - data saved for user \"$gAuthkey\".");
+</script>
+</body>
+</html>
+OUTPUT;
 	}
 	else {
 		error_log("ERROR: save: appname '$appname' not found in registry");
