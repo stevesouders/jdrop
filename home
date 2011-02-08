@@ -28,7 +28,7 @@ if ( ! $gAuthkey ) {
 	insertLoginForm();
 }
 else {
-    $nowrows = doSimpleQuery("select count(*) from data where authkey='$gAuthkey';");
+    $numrows = doSimpleQuery("select count(*) from data where authkey='$gAuthkey';");
 }
 
 if ( ! $numrows ) {
@@ -36,6 +36,7 @@ if ( ! $numrows ) {
 	insertHowTo();
 }
 else {
+	require_once("inc/myjson.inc");
 }
 ?>
 
