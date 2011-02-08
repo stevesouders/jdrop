@@ -7,47 +7,57 @@ require_once("inc/uaparser.inc");
 $gAuthkey = getAuthkey();
 
 if ( $gAuthkey ) {
-	$search = $appchecked = $sitechecked = $urlchecked = $browserchecked = $jsonchecked = "";
+	$pApp = $_GET["app"];
+	$pSite = $_GET["site"];
+	$pUrl = $_GET["url"];
+	$pBrowser = $_GET["browser"];
+
+	$aConds = array();
+	if ( $pApp ) {
+		array_push($aConds, "appname like '%$pApp%'");
+	}
+	if ( $pSite ) {
+		array_push($aConds, "title like '%$pSite%'");
+	}
+	if ( $pUrl ) {
+		array_push($aConds, "referer like '%$pBrowser%'");
+	}
+	if ( $pBrowser ) {
+		array_push($aConds, "browser like '%$pBrowser%'");
+	}
+
 	$sConds = "";
-	if ( array_key_exists("s", $_GET) ) {
-		$aConds = array();
-		$search = $_GET["s"];
-		if ( array_key_exists("app", $_GET) ) {
-			array_push($aConds, "appname like '%$search%'");
-			$appchecked = "checked";
-		}
-		if ( array_key_exists("site", $_GET) ) {
-			array_push($aConds, "title like '%$search%'");
-			$sitechecked = "checked";
-		}
-		if ( array_key_exists("url", $_GET) ) {
-			array_push($aConds, "referer like '%$search%'");
-			$urlchecked = "checked";
-		}
-		if ( array_key_exists("browser", $_GET) ) {
-			array_push($aConds, "browser like '%$search%'");
-			$browserchecked = "checked";
-		}
-		if ( array_key_exists("json", $_GET) ) {
-			array_push($aConds, "json like '%$search%'");
-			$jsonchecked = "checked";
-		}
-		if ( count($aConds) ) {
-			$sConds = "and (" . implode(" or ", $aConds) . ")";
-		}
+	$sDisplay = "none";
+	if ( count($aConds) ) {
+		$sConds = "and (" . implode(" and ", $aConds) . ")";
+		$sDisplay = "block";
 	}
 
 	echo <<<OUTPUT
+<style>
+.label { font-weight: bold; text-align: right; }
+#search TD { padding: 2px 4px; font-size: 0.9em; }
+#results TH { border-bottom: 1px solid #000; padding: 12px 4px; }
+#results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
+</style>
+
+<table cellpadding=0 cellspacing=0 border=0 style="margin-bottom: 0; font-size: 0.9em;">
+ <tr>
+   <td style="vertical-align: top;"> <a href="toggle" onclick="document.getElementById('searchform').style.display=('none'==document.getElementById('searchform').style.display?'block':'none');return false;">filter &gt;&gt;</a> </td>
+   <td> 
+<div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px;">
 <form>
-<table cellpadding=0 cellspacing=0 border=0 style="margin-bottom: 40px; font-size: 0.9em;">
- <tr> <td style="padding-right: 10px;">search for:</td> <td><input type=text name=s size=45 value="$search"></td> <td style="padding-left: 10px;"><input type=submit value="Filter"></td> </tr>
- <tr> <td style="padding-right: 10px;" align=right>in:</td> <td><input type=checkbox name="app" $appchecked style="margin-left: 0;">app
-<input type=checkbox name="site" $sitechecked style="margin-left: 10px;">website
-<input type=checkbox name="url" $urlchecked style="margin-left: 10px;">URL
-<input type=checkbox name="browser" $browserchecked style="margin-left: 10px;">browser
-<input type=checkbox name="json" $jsonchecked style="margin-left: 10px;">JSON</td> <td></td> </tr>
+<table id=search cellpadding=0 cellspacing=0 border=0>
+  <tr> <td class=label>App:</td> <td><input type=text size=35 name=app value="$pApp"></td> <td rowspan=4 style="vertical-align: top;"><input type=submit value="Filter"></td> </tr>
+  <tr> <td class=label>Website:</td> <td><input type=text size=35 name=site value="$pSite"></td> </tr>
+  <tr> <td class=label>URL:</td> <td><input type=text size=35 name=url value="$pUrl"></td> </tr>
+  <tr> <td class=label>Browser:</td> <td><input type=text size=35 name=browser value="$pBrowser"></td> </tr>
 </table>
 </form>
+</div>
+  </td>
+ </tr>
+</table>
 OUTPUT;
 
 	$query = "select dataid, createDate, referer, appname, title, browser, version, summary from data where authkey='$gAuthkey' $sConds order by createDate desc limit 1000;";
@@ -59,11 +69,6 @@ OUTPUT;
 			if ( $bFirst ) {
 				$bFirst = false;
 				echo <<<OUTPUT
-<style>
-#results TH { border-bottom: 1px solid #000; padding: 1.75em 4px; }
-#results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
-</style>
-
 <div style="width: 1200px;">
 <table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>
 <tr> <th>Date</th> <th>JSON</th> <th>App</th> <th>Website</th> <th>Summary</th> <th>Browser</th> <th>&nbsp;</th> </tr>
@@ -90,6 +95,13 @@ OUTPUT;
 </div> <!-- wide div -->
 
 <script type="text/javascript">
+function toggleSearchForm() {
+	var form = document.getElementById('searchform');
+	alert(form.style.display);
+	form.style.display = ( "none" === form.style.display ? "blocked" : "none" );
+	alert(form.style.display);
+}
+
 function doDelete(dataid) {
 	(new Image()).src = "remove?id=" + dataid;
 	var tr = document.getElementById(dataid);
