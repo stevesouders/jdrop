@@ -1,7 +1,7 @@
 <?php
+require_once("inc/auth.inc");
 
-  require_once("inc/auth.inc");
-  clearAuthkey();
-  header('Location:/home');
-
+$target = ( $_SERVER["HTTP_REFERER"] ? $_SERVER["HTTP_REFERER"] : "home" );
+clearAuthkey();
+header('Location:$target');
 ?>
