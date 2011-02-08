@@ -1,0 +1,39 @@
+<?php
+
+include_once "../inc/oauth-php/library/OAuthStore.php";
+include_once "../inc/oauth-php/library/OAuthRequester.php";
+
+OAuthStore::instance("2Leg", array(
+  'consumer_key' => 'DO8MjAsXXfugbouM2aqStg',
+  'consumer_secret' => 'EzFUxP93DDmGLg28Ow4q0YTgWUY4yZVNGKAgZLTy9w',
+));
+
+if(!isset($_GET['oauth_token'])) { # stage 1
+
+  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //here
+  $request = new OAuthRequester(
+    'https://api.twitter.com/oauth/request_token',
+    'POST',
+    array('oauth_callback' => $callback)
+  );
+  $result = $request->doRequest(0);
+  parse_str($result['body']);
+  header('Location: http://api.twitter.com/oauth/authorize?oauth_token=' . $oauth_token);
+
+} else {  # stage 2
+
+  $request = new OAuthRequester(
+    'https://api.twitter.com/oauth/access_token',
+    'POST',
+    array('oauth_token' => $_GET['oauth_token'])
+  );
+  $result = $request->doRequest(0);
+  parse_str($result['body']);
+
+  require_once("../inc/auth.inc");
+  setAuthkey($screen_name, 'Twitter');
+  header('Location:/home');
+
+}
+
+?>
