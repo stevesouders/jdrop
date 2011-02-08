@@ -1,0 +1,119 @@
+<?php
+require_once("inc/auth.inc");
+require_once("inc/utils.inc");
+require_once("inc/db.inc");
+require_once("inc/uaparser.inc");
+
+$gAuthkey = getAuthkey();
+
+if ( $gAuthkey ) {
+	$search = $appchecked = $sitechecked = $urlchecked = $browserchecked = $jsonchecked = "";
+	$sConds = "";
+	if ( array_key_exists("s", $_GET) ) {
+		$aConds = array();
+		$search = $_GET["s"];
+		if ( array_key_exists("app", $_GET) ) {
+			array_push($aConds, "appname like '%$search%'");
+			$appchecked = "checked";
+		}
+		if ( array_key_exists("site", $_GET) ) {
+			array_push($aConds, "title like '%$search%'");
+			$sitechecked = "checked";
+		}
+		if ( array_key_exists("url", $_GET) ) {
+			array_push($aConds, "referer like '%$search%'");
+			$urlchecked = "checked";
+		}
+		if ( array_key_exists("browser", $_GET) ) {
+			array_push($aConds, "browser like '%$search%'");
+			$browserchecked = "checked";
+		}
+		if ( array_key_exists("json", $_GET) ) {
+			array_push($aConds, "json like '%$search%'");
+			$jsonchecked = "checked";
+		}
+		if ( count($aConds) ) {
+			$sConds = "and (" . implode(" or ", $aConds) . ")";
+		}
+	}
+
+	echo <<<OUTPUT
+<form>
+<table cellpadding=0 cellspacing=0 border=0 style="margin-bottom: 40px; font-size: 0.9em;">
+ <tr> <td style="padding-right: 10px;">search for:</td> <td><input type=text name=s size=45 value="$search"></td> <td style="padding-left: 10px;"><input type=submit value="Filter"></td> </tr>
+ <tr> <td style="padding-right: 10px;" align=right>in:</td> <td><input type=checkbox name="app" $appchecked style="margin-left: 0;">app
+<input type=checkbox name="site" $sitechecked style="margin-left: 10px;">website
+<input type=checkbox name="url" $urlchecked style="margin-left: 10px;">URL
+<input type=checkbox name="browser" $browserchecked style="margin-left: 10px;">browser
+<input type=checkbox name="json" $jsonchecked style="margin-left: 10px;">JSON</td> <td></td> </tr>
+</table>
+</form>
+OUTPUT;
+
+	$query = "select dataid, createDate, referer, appname, title, browser, version, summary from data where authkey='$gAuthkey' $sConds order by createDate desc limit 1000;";
+	$result = doQuery($query);
+
+	if ( $result ) {
+		$bFirst = true;
+		while ( $row = mysql_fetch_assoc($result) ) {
+			if ( $bFirst ) {
+				$bFirst = false;
+				echo <<<OUTPUT
+<style>
+#results TH { border-bottom: 1px solid #000; padding: 1.75em 4px; }
+#results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
+</style>
+
+<div style="width: 1200px;">
+<table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>
+<tr> <th>Date</th> <th>JSON</th> <th>App</th> <th>Website</th> <th>Summary</th> <th>Browser</th> <th>&nbsp;</th> </tr>
+OUTPUT;
+			}
+			$dataid = $row['dataid'];
+			$date = $row['createDate'];
+			$date = date("n/j/Y H:i", $date);
+			$url = $row['referer'];
+			$appname = $row['appname'];
+			$version = $row['version'];
+			$version = ( $version ? " $version" : "" );
+			$summary = $row['summary'];
+			$browser = parseUserAgent($row['browser']);
+			$title = $row['title'];
+			$title = substr(( $title ? $title : $url ), 0, 64);
+			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> <td align=center><a href='view?id=$dataid'>view</a>   <a href='export?id=$dataid'>export</a></td> <td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
+				" <td><a href='#' onclick='doDelete($dataid); return false' class=ahoverborder style='color: #900; font-weight: bold;' title='remove'>X</a></td> </tr>\n";
+		}
+		mysql_free_result($result);
+		if ( ! $bFirst ) {
+			echo <<<OUTPUT
+</table>
+</div> <!-- wide div -->
+
+<script type="text/javascript">
+function doDelete(dataid) {
+	(new Image()).src = "remove?id=" + dataid;
+	var tr = document.getElementById(dataid);
+	if ( tr ) {
+		tr.style.display = "none";
+	}
+}
+
+var script = document.createElement('script');
+script.src = "tablesort.js";
+script.onload = function() { TS.init(); };
+document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+
+OUTPUT;
+		}
+		else if ( $sConds ) {
+			echo "<p>nothing found</p>\n\n";
+		}
+		else {
+			echo "<p>You don't have any JSON (yet). Check out the <a href='apps'>apps</a>.</p>\n\n";
+		}
+	}
+}
+?>
+
+
