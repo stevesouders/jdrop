@@ -45,6 +45,62 @@ function getWelcome($authkey) {
 }
 
 
+function insertAbout() {
+	echo <<<OUTPUT
+<p style="margin-top: 20px;">
+JDrop provides a place to store JSON data in the cloud.
+The initial application is for storing performance data gathered from mobile devices.
+It's hard to analyze large amounts of information (HTTP waterfall charts, HTTP headers, document source, etc.) on a mobile device.
+JDrop lets you <em>gather</em> this data on the mobile device but <em>analyze</em> it remotely on a larger screen.
+</p>
+OUTPUT;
+}
+
+
+function insertHowTo() {
+    echo <<<OUTPUT
+<style>
+OL > LI { margin-bottom: 8px; }
+LI { line-height: 1.4em; }
+</style>
+
+<div style="font-weight: bold; margin-top: 30px; font-size: 1.3em;">
+How to use JDrop:
+</div>
+
+<ul style="list-style-type: none;">
+  <li> <b>On your mobile device:</b>
+    <ul style="margin-top: 0;">
+      <li> <a href="home">sign in to JDrop</a>
+      <li> install any of the <a href="apps">apps</a> that use JDrop
+      <li> run the app and save data to JDrop
+    </ul>
+  <li style="margin-top: 8px;"> <b>On your desktop or laptop:</b>
+    <ul style="margin-top: 0;">
+      <li> <a href="home">sign in to JDrop</a>
+      <li> view the <a href="myjson">JSON data</a> that you generated
+    </ul>
+</ul>
+
+<p style="margin-top: 30px;">
+Checkout the <a href="example">example use case</a> for screenshots and more information.
+</p>
+OUTPUT;
+}
+
+
+function insertLoginForm() {
+	echo <<<OUTPUT
+<div style="margin-top: 40px;">
+<strong>Sign in with an existing account:</strong>
+<div style="margin: 8px 0 8px 20px;">
+<a href='oauth/twitter' class=warning alt="Login with Twitter"><img src="images/sign-in-with-twitter-d.png" style="border: 0;" width=151 height=24></a>
+</div>
+</div>
+OUTPUT;
+}
+
+
 //function insertLoginForm() {
 //	$authkey = getAuthkey();
 //	$loginmsg = ( $authkey ? "You're logged in as \"$authkey\"." : "You're not logged in." );
