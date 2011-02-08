@@ -1,0 +1,7 @@
+<?php
+
+  require_once("inc/auth.inc");
+  clearAuthkey();
+  header('Location:/home');
+
+?>
