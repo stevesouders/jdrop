@@ -39,19 +39,21 @@ if ( $gAuthkey ) {
 #search TD { padding: 2px 4px; font-size: 0.9em; }
 #results TH { border-bottom: 1px solid #000; padding: 12px 4px; }
 #results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
+#filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #315666; color: #315666; padding: 0 2px 0 2px; }
+#filterbtn:hover { background: #FEDED6; border: 1px solid #E03105; }
 </style>
 
 <table cellpadding=0 cellspacing=0 border=0 style="margin-bottom: 0; font-size: 0.9em;">
  <tr>
-   <td style="vertical-align: top;"> <a href="toggle" onclick="document.getElementById('searchform').style.display=('none'==document.getElementById('searchform').style.display?'block':'none');return false;">filter &gt;&gt;</a> </td>
+   <td style="vertical-align: top;"> <a id=filterbtn href="toggle" onclick="toggleSearchForm();return false;">filter &rsaquo;&rsaquo;</a> </td>
    <td> 
 <div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px;">
 <form>
 <table id=search cellpadding=0 cellspacing=0 border=0>
-  <tr> <td class=label>App:</td> <td><input type=text size=35 name=app value="$pApp"></td> <td rowspan=4 style="vertical-align: top;"><input type=submit value="Filter"></td> </tr>
-  <tr> <td class=label>Website:</td> <td><input type=text size=35 name=site value="$pSite"></td> </tr>
-  <tr> <td class=label>URL:</td> <td><input type=text size=35 name=url value="$pUrl"></td> </tr>
-  <tr> <td class=label>Browser:</td> <td><input type=text size=35 name=browser value="$pBrowser"></td> </tr>
+  <tr> <td class=label>App:</td> <td><input type=text size=35 name=app value="$pApp"></td> <td></td> </tr>
+  <tr> <td class=label>Website:</td> <td><input type=text size=35 name=site value="$pSite"></td> <td></td> </tr>
+  <tr> <td class=label>URL:</td> <td><input type=text size=35 name=url value="$pUrl"></td> <td></td> </tr>
+  <tr> <td class=label>Browser:</td> <td><input type=text size=35 name=browser value="$pBrowser"></td> <td style="vertical-align: top;"><input type=submit value="Filter"></td> </tr>
 </table>
 </form>
 </div>
@@ -97,9 +99,11 @@ OUTPUT;
 <script type="text/javascript">
 function toggleSearchForm() {
 	var form = document.getElementById('searchform');
-	alert(form.style.display);
-	form.style.display = ( "none" === form.style.display ? "blocked" : "none" );
-	alert(form.style.display);
+	var bShow = ( "none" === form.style.display );
+	form.style.display = ( bShow ? "block" : "none" );
+
+	var filterbtn = document.getElementById('filterbtn');
+	filterbtn.innerHTML = ( bShow ? "filter &lsaquo;&lsaquo;" : "filter &rsaquo;&rsaquo;" );	
 }
 
 function doDelete(dataid) {
