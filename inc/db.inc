@@ -7,8 +7,6 @@ $gMysqlServer = "db.jdrop.org";
 $gMysqlDb = "jdrop";
 $gMysqlUsername = "jdropadmin";
 $gMysqlPassword = DB_PASSWORD;
-
-"ENTER_PASSWORD_HERE";
 $gDataTable = "data";
 $gAppsTable = "apps";
 
