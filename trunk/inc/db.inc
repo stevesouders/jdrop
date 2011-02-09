@@ -1,10 +1,14 @@
 <?php
+
 require_once("utils.inc");
+require_once('secrets.inc');
 
 $gMysqlServer = "db.jdrop.org";
 $gMysqlDb = "jdrop";
 $gMysqlUsername = "jdropadmin";
-$gMysqlPassword = "ENTER_PASSWORD_HERE";
+$gMysqlPassword = DB_PASSWORD;
+
+"ENTER_PASSWORD_HERE";
 $gDataTable = "data";
 $gAppsTable = "apps";
 
