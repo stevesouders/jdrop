@@ -7,6 +7,14 @@ require_once("inc/uaparser.inc");
 $gTitle = "JDrop view";
 $dataid = ( array_key_exists('id', $_GET) ? $_GET['id'] : "" );
 $gAuthkey = getAuthkey();
+
+$refUrl = "home";
+if ( array_key_exists("HTTP_REFERER", $_SERVER) ) {
+	$referer = $_SERVER["HTTP_REFERER"];
+	if ( strpos($referer, "myjson") ) {
+		$refUrl = $referer;
+	}
+}
 ?>
 <!doctype html>
 <html>
@@ -22,7 +30,7 @@ $gAuthkey = getAuthkey();
 
 <?php insertHeader($gTitle) ?>
 
-<a href="myjson" class=ahover>&larr; back to myJSON</a>
+<a href="<?php echo $refUrl ?>" class=ahover>&larr; back to myJSON</a>
 
 <?php 
 if ( ! $gAuthkey ) {
