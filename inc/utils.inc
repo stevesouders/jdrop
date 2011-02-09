@@ -94,11 +94,11 @@ function insertLoginForm() {
 <div style="margin-top: 40px;">
 <strong>Sign in with an online account:</strong>
 <div style="margin: 8px 0 8px 20px;">
-<a href='oauth/google' class=warning alt="Login with Google"><img src="images/google.png" style="margin:4px;border: 0;vertical-align:middle; margin-right: 0;" width=32 height=32></a>
-<a href='oauth/google' class=warning alt="Login with Google">Google</a>
-&nbsp;&nbsp;&nbsp;
 <a href='oauth/twitter' class=warning alt="Login with Twitter"><img src="images/twitter.png" style="margin:4px;border: 0;vertical-align:middle; margin-right: 0;" width=32 height=32></a>
 <a href='oauth/twitter' class=warning alt="Login with Twitter">Twitter</a>
+&nbsp;&nbsp;&nbsp;
+<a href='oauth/google' class=warning alt="Login with Google"><img src="images/google.png" style="margin:4px;border: 0;vertical-align:middle; margin-right: 0;" width=32 height=32></a>
+<a href='oauth/google' class=warning alt="Login with Google">Google</a>
 </div>
 </div>
 OUTPUT;
