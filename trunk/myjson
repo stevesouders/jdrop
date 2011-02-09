@@ -32,7 +32,11 @@ Please sign in to an account to view your data.
 OUTPUT;
 }
 else {
-	print "<h2>JSON for " . getAuthkey(true) . "</h2>";
+	echo <<<OUTPUT
+<h2>
+JSON for $gAuthkey:
+</h2>
+OUTPUT;
 	require_once("inc/myjson.inc");
 }
 ?>
