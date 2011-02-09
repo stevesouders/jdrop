@@ -7,10 +7,10 @@ require_once("inc/uaparser.inc");
 $gAuthkey = getAuthkey();
 
 if ( $gAuthkey ) {
-	$pApp = $_GET["app"];
-	$pSite = $_GET["site"];
-	$pUrl = $_GET["url"];
-	$pBrowser = $_GET["browser"];
+	$pApp = ( array_key_exists("app", $_GET) ? $_GET["app"] : "" );
+	$pSite = ( array_key_exists("site", $_GET) ? $_GET["site"] : "" );
+	$pUrl = ( array_key_exists("url", $_GET) ? $_GET["url"] : "" );
+	$pBrowser = ( array_key_exists("browser", $_GET) ? $_GET["browser"] : "" );
 
 	$aConds = array();
 	if ( $pApp ) {
