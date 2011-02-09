@@ -27,9 +27,9 @@ function clearAuthkey() {
 	setcookie("user", "", 0, "/");
 }
 
-
+require_once('secrets.inc');
 function hashForKey($authkey, $provider) {
-  return md5("$authkey-$provider-thisistheyearofthemobileweb");
+  return md5("$authkey-$provider-" . SALT);
 }
 
 ?>

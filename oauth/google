@@ -1,40 +1,46 @@
 <?php
+ini_set('display_errors', 1);
 
-//TODO
+require_once("../inc/oauth-php/library/OAuthStore.php");
+require_once("../inc/oauth-php/library/OAuthRequester.php");
 
-include_once "../inc/oauth-php/library/OAuthStore.php";
-include_once "../inc/oauth-php/library/OAuthRequester.php";
+require_once('../inc/secrets.inc');
 
 OAuthStore::instance("2Leg", array(
-  'consumer_key' => '...',
-  'consumer_secret' => '...',
+  'consumer_key' => GOOGLE_KEY,
+  'consumer_secret' => GOOGLE_SECRET,
 ));
 
 if(!isset($_GET['oauth_token'])) { # stage 1
 
-  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //here
+  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?to=' . urlencode($_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : "/home");
   $request = new OAuthRequester(
-    'https://api.twitter.com/oauth/request_token',
+    'https://www.google.com/accounts/OAuthGetRequestToken',
     'POST',
-    array('oauth_callback' => $callback)
+    array('oauth_callback' => $callback, 'scope' => 'https://www-opensocial.googleusercontent.com/api/people/')
   );
   $result = $request->doRequest(0);
   parse_str($result['body']);
-  header('Location: http://api.twitter.com/oauth/authorize?oauth_token=' . $oauth_token);
+  header('Location: https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' . $oauth_token);
 
 } else {  # stage 2
 
+print $_GET['oauth_token'];
+
   $request = new OAuthRequester(
-    'https://api.twitter.com/oauth/access_token',
+    'https://www.google.com/accounts/OAuthGetAccessToken',
     'POST',
     array('oauth_token' => $_GET['oauth_token'])
   );
   $result = $request->doRequest(0);
   parse_str($result['body']);
 
+  print_r($result);
+
   require_once("../inc/auth.inc");
   setAuthkey($screen_name, 'Google');
-  header('Location:/home');
+
+  header("Location:" . ($_GET['to'] ? $_GET['to'] : "/home"));
 
 }
 
