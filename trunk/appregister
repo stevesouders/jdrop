@@ -87,7 +87,7 @@ OUTPUT;
 		$callback = $row['callback'];
 		$format = $row['format'];
 		$formatkey = $row['formatkey'];
-		echo "  <tr id='$appname'> <td>$appname</td> <td><a href='$jsurl'>$jsurl</a></td> <td>$callback</td> <td>$format</td> <td>$formatkey</td> <td><a href='#' onclick='doEdit(\"$appname\")'>edit</a> &nbsp;&nbsp; <a href='appregister?action=remove&appname=$appname' onclick='return confirmEdit()'>remove</a></td> </tr>\n";
+		echo "  <tr id='$appname'> <td>$appname</td> <td><a href='$jsurl'>$jsurl</a></td> <td>$callback</td> <td>$format</td> <td>$formatkey</td> <td><a href='#' onclick='doEdit(\"$appname\");return false;'>edit</a> &nbsp;&nbsp; <a href='appregister?action=remove&appname=$appname' onclick='return confirmEdit()'>remove</a></td> </tr>\n";
 	}
 	mysql_free_result($result);
 	if ( ! $bFirst ) {
