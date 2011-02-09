@@ -12,7 +12,7 @@ OAuthStore::instance("2Leg", array(
 
 if(!isset($_GET['oauth_token'])) { # stage 1
 
-  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?to=' . urlencode($_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : "/home");
+  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?to=' . urlencode(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/home");
   $request = new OAuthRequester(
     'https://api.twitter.com/oauth/request_token',
     'POST',

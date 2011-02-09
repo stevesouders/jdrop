@@ -27,16 +27,12 @@ if ( ! $gAuthkey ) {
 	insertLoginForm();
 	echo <<<OUTPUT
 <p class=warning>
-Please "login" to view your data.
+Please sign in to an account to view your data.
 </p>
 OUTPUT;
 }
 else {
-	echo <<<OUTPUT
-<h2>
-JSON for $gAuthkey:
-</h2>
-OUTPUT;
+	print "<h2>JSON for " . getAuthkey(true) . "</h2>";
 	require_once("inc/myjson.inc");
 }
 ?>
