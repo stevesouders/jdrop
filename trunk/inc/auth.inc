@@ -1,19 +1,30 @@
 <?php
 
 // return the "username" based on cookies
-function getAuthkey($name_only) {
+function getAuthkey() {
 	if (array_key_exists("user", $_COOKIE)) {
-    if ($keyAndHash = $_COOKIE["user"]) {
-      list($key, $provider, $hash) = split("\t", $keyAndHash, 3);
-      if (hashForKey($key, $provider) == $hash) {
-        if ($name_only) {
-          return $key;
-        }
-        return "$key ($provider)";
-      }
+		if ($keyAndHash = $_COOKIE["user"]) {
+			list($key, $provider, $hash) = split("\t", $keyAndHash, 3);
+			if (hashForKey($key, $provider) == $hash) {
+				return "$key ($provider)";
+			}
+		}
+	}
+	return "";
+}
+
+
+// return the "username" based on cookies
+function getUsername() {
+	if (array_key_exists("user", $_COOKIE)) {
+		if ($keyAndHash = $_COOKIE["user"]) {
+			list($key, $provider, $hash) = split("\t", $keyAndHash, 3);
+			if (hashForKey($key, $provider) == $hash) {
+				return $key;
+			}
+		}
     }
-  }
-  return "";
+	return "";
 }
 
 
