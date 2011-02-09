@@ -17,9 +17,9 @@ OUTPUT;
 
 
 function insertHeader($title) {
-	$authkey = getAuthkey(true);
-	$welcome = ( $authkey ? "<span id=welcomemsg style='font-style: italic; margin-right: 20px;'>" . getWelcome($authkey) . "</span> " : "" );
-  $logout = ($authkey ? '&nbsp;|&nbsp;<a href="logout">logout</a>' : '');
+	$username = getUsername();
+	$welcome = ( $username ? "<span id=welcomemsg style='font-style: italic; margin-right: 20px;'>" . getWelcome($username) . "</span> " : "" );
+  $logout = ($username ? '&nbsp;|&nbsp;<a href="logout">logout</a>' : '');
 
 	echo <<<OUTPUT
 <div style="float: right; font-size: 0.9em;">
@@ -38,10 +38,10 @@ OUTPUT;
 }
 
 
-function getWelcome($authkey) {
+function getWelcome($username) {
 	$aGreetings = array("hey", "yo", "rock on", "welcome", "hi", "hola", "peace", "surf's up", "greetings",
 						"g'day", "cheers", "hello");
-	return $aGreetings[rand(0, count($aGreetings)-1)] . " $authkey";
+	return $aGreetings[rand(0, count($aGreetings)-1)] . " $username";
 }
 
 
