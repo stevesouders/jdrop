@@ -6,36 +6,33 @@ require_once("../inc/oauth-php/library/OAuthRequester.php");
 
 require_once('../inc/secrets.inc');
 
-OAuthStore::instance("2Leg", array(
+OAuthStore::instance("Session", array(
   'consumer_key' => GOOGLE_KEY,
   'consumer_secret' => GOOGLE_SECRET,
+  'server_uri' => 'https://www.google.com',
+  'request_token_uri' => 'https://www.google.com/accounts/OAuthGetRequestToken',
+  'authorize_uri' => 'https://www.google.com/accounts/OAuthAuthorizeToken',
+  'access_token_uri' => 'https://www.google.com/accounts/OAuthGetAccessToken'
 ));
+
+$scope = 'http://www-opensocial.googleusercontent.com/api/people/';
 
 if(!isset($_GET['oauth_token'])) { # stage 1
 
-  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?to=' . urlencode($_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : "/home");
-  $request = new OAuthRequester(
-    'https://www.google.com/accounts/OAuthGetRequestToken',
-    'POST',
-    array('oauth_callback' => $callback, 'scope' => 'https://www-opensocial.googleusercontent.com/api/people/')
-  );
-  $result = $request->doRequest(0);
-  parse_str($result['body']);
-  header('Location: https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' . $oauth_token);
+  $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?to=' . urlencode(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/home");
+  $response = OAuthRequester::requestRequestToken(GOOGLE_KEY, 0, array('oauth_callback' => $callback, 'scope' => $scope));
+  header('Location: https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=' . $response['token']);
 
 } else {  # stage 2
 
-print $_GET['oauth_token'];
-
-  $request = new OAuthRequester(
-    'https://www.google.com/accounts/OAuthGetAccessToken',
-    'POST',
-    array('oauth_token' => $_GET['oauth_token'])
-  );
+  OAuthRequester::requestAccessToken(GOOGLE_KEY, $_GET['oauth_token'], 0, 'POST', $_GET);
+  $request = new OAuthRequester($scope . '@me/@self', 'GET', $_GET);
   $result = $request->doRequest(0);
-  parse_str($result['body']);
+  $result = json_decode($result['body']);
 
-  print_r($result);
+  $screen_name = $result->entry->profileUrl;
+
+  $screen_name = str_replace('http://www.google.com/profiles/', '', $screen_name);
 
   require_once("../inc/auth.inc");
   setAuthkey($screen_name, 'Google');
