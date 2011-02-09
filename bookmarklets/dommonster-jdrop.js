@@ -83,7 +83,7 @@
 
   JR.JDropCallback = function(jsonobj) {
       if ( ! document.getElementById("jr_results_prognosis_container") ) {
-		  setTimeout(function() { JR.flushJSON(jsonobj); }, 500);
+		  setTimeout(function() { JR.JDropCallback(jsonobj); }, 500);
 		  return;
 	  }
 	  JR._lines.warn = jsonobj['warn'];
