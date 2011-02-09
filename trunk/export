@@ -16,7 +16,7 @@ $gFormats = array(
 				  );
 
 if ( $gAuthkey && $dataid ) {
-	$row = doRowQuery("select $gDataTable.appname, json, version, format, formatkey from $gDataTable, $gAppsTable where dataid=$dataid and $gDataTable.appname = $gAppsTable.appname;");
+	$row = doRowQuery("select $gDataTable.appname, json, version, format, formatkey from $gDataTable, $gAppsTable where authkey='$gAuthkey' and dataid=$dataid and $gDataTable.appname = $gAppsTable.appname;");
 	if ( $row ) {
 		$appname = $row['appname'];
 		$json = $row['json'];
