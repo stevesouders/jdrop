@@ -4,7 +4,7 @@ require_once("inc/utils.inc");
 require_once("inc/db.inc");
 require_once("inc/uaparser.inc");
 
-$gAuthkey = getAuthkey();
+$gUsername = getUsername();
 $gTitle = "JDrop myJSON";
 ?>
 <!doctype html>
@@ -23,7 +23,7 @@ $gTitle = "JDrop myJSON";
 <?php insertHeader($gTitle) ?>
 
 <?php
-if ( ! $gAuthkey ) {
+if ( ! $gUsername ) {
 	insertLoginForm();
 	echo <<<OUTPUT
 <p class=warning>
@@ -34,7 +34,7 @@ OUTPUT;
 else {
 	echo <<<OUTPUT
 <h2>
-JSON for $gAuthkey:
+JSON for <em>$gUsername</em>:
 </h2>
 OUTPUT;
 	require_once("inc/myjson.inc");
