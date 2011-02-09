@@ -5,7 +5,7 @@ require_once("inc/db.inc");
 header("HTTP/1.0 204 No Content");
 
 $dataid = ( array_key_exists('id', $_GET) ? $_GET['id'] : '' );
-$authkey = getAuthKey(false);
+$authkey = getAuthkey(false);
 if ( $dataid && $authkey ) {
 	$realAuthkey = doSimpleQuery("select authkey from $gDataTable where dataid=$dataid;");
 	if ( $realAuthkey && $realAuthkey === $authkey ) {
