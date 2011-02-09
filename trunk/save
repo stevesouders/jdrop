@@ -3,6 +3,7 @@ require_once("inc/db.inc");
 require_once("inc/auth.inc");
 
 $gAuthkey = getAuthkey();
+$gUsername = getUsername();
 
 if ( ! $gAuthkey ) {
 	echo <<<OUTPUT
@@ -37,7 +38,7 @@ else if ( $gAuthkey && array_key_exists("appname", $_POST) && array_key_exists("
 <html>
 <body>
 <script type="text/javascript">
-alert("Success - data saved for user \"$gAuthkey\".");
+alert("Success - data saved for user \"$gUsername\".");
 </script>
 </body>
 </html>
