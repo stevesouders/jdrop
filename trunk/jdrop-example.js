@@ -1,11 +1,12 @@
 // Code to embed in your bookmarklet to make it work with JDrop.
 // See http://jdrop.org/devdocs
 
-function SaveToJDrop(appname, myDataObj, version) {
+function SaveToJDrop(appname, myDataObj, version, summary) {
 	// create object of parameters to pass to JDrop
 	var params = { "appname": appname,
 	               "title": document.title, 
 	               "version": version,
+				   "summary": summary,
 	               "json": JSON.stringify(myDataObj) };
 
 	// hidden iframe to use as target of form submit
@@ -20,6 +21,7 @@ function SaveToJDrop(appname, myDataObj, version) {
 	jdropform.method = "post";
 	jdropform.action = "http://jdrop.org/save";
 	jdropform.target = "jdropiframe";
+	jdropform.style.display = "hidden";
 
 	// add each param to the form as an input field
 	for (var key in params) {
@@ -31,9 +33,9 @@ function SaveToJDrop(appname, myDataObj, version) {
 
 	// submit the form and cleanup
 	document.body.appendChild(jdropform);
+	jdropif.onload = function() { document.body.removeChild(jdropform); document.body.removeChild(jdropif); };
+	jdropif.onerror = function() { document.body.removeChild(jdropform); document.body.removeChild(jdropif); };
 	jdropform.submit();
-	document.body.removeChild(jdropform);
-	setTimeout(function() { document.body.removeChild(jdropif); }, 500);
 }
 
 
