@@ -53,7 +53,7 @@ function authUser() {
 	return ( getAuthkey() && array_key_exists(getAuthkey(), $ghAuthUsers) );
 }
 
-
+/* add this if you want to restrict the site based on authkey
 if ( !authUser() &&
 	 ! ( $_SERVER["REQUEST_URI"] === "/" || 
 		 $_SERVER["REQUEST_URI"] === "/home" || 
@@ -63,5 +63,5 @@ if ( !authUser() &&
 	header("HTTP/1.0 401 Unauthorized");
 	exit();
 }
-
+*/
 ?>
