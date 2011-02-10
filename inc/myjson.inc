@@ -39,15 +39,19 @@ if ( $gAuthkey ) {
 #search TD { padding: 2px 4px; font-size: 0.9em; }
 #results TH { border-bottom: 1px solid #000; padding: 12px 4px; }
 #results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
-#filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #315666; color: #315666; padding: 0 2px 0 2px; }
-#filterbtn:hover { background: #FEDED6; border: 1px solid #E03105; }
+#filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #C66300; color: #FFF; padding: 2px 4px; background: #C66300; }
+#filterbtn:hover { background: #E70; border: 1px solid #E03105; }
+.jsonlink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #630; font-size: 0.9em; }
+.jsonlink:hover { background: #C66300; color: #FFF; }
+.removelink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #900; font-size: 0.9em; }
+.removelink:hover { background: #900; color: #FFF; }
 </style>
 
 <table cellpadding=0 cellspacing=0 border=0 style="margin-bottom: 0; font-size: 0.9em;">
  <tr>
    <td style="vertical-align: top;"> <a id=filterbtn href="toggle" onclick="toggleSearchForm();return false;">filter &rsaquo;&rsaquo;</a> </td>
    <td> 
-<div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px;">
+<div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px; margin-bottom: 20px;">
 <form>
 <table id=search cellpadding=0 cellspacing=0 border=0>
   <tr> <td class=label>App:</td> <td><input type=text size=35 name=app value="$pApp"></td> <td></td> </tr>
@@ -73,7 +77,7 @@ OUTPUT;
 				echo <<<OUTPUT
 <div style="width: 1200px;">
 <table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>
-<tr> <th>Date</th> <th>JSON</th> <th>App</th> <th>Website</th> <th>Summary</th> <th>Browser</th> <th>&nbsp;</th> </tr>
+<tr> <th>Date</th> <th>JSON</th> <th>App</th> <th style="width: 300px;">Website</th> <th>Summary</th> <th>Browser</th> <th>&nbsp;</th> </tr>
 OUTPUT;
 			}
 			$dataid = $row['dataid'];
@@ -87,8 +91,8 @@ OUTPUT;
 			$browser = parseUserAgent($row['browser']);
 			$title = $row['title'];
 			$title = substr(( $title ? $title : $url ), 0, 64);
-			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> <td align=center><a href='view?id=$dataid'>view</a>   <a href='export?id=$dataid'>export</a></td> <td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
-				" <td><a href='#' onclick='doDelete($dataid); return false' class=ahoverborder style='color: #900; font-weight: bold;' title='remove'>X</a></td> </tr>\n";
+			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> <td align=center><a class=jsonlink href='view?id=$dataid'>view</a>   <a class=jsonlink href='export?id=$dataid'>export</a></td> <td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
+				" <td><a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> </tr>\n";
 		}
 		mysql_free_result($result);
 		if ( ! $bFirst ) {
