@@ -21,18 +21,19 @@ else if ( $gAuthkey && array_key_exists("appname", $_POST) && array_key_exists("
 	if ( $appname === doSimpleQuery("select appname from apps where appname='$appname';") ) {
 		// Only save data from registered apps.
 		$json = mysqlEscape($_POST["json"]);
-		$title = ( array_key_exists("title", $_POST) ? substr($_POST["title"], 0, 255) : "" );
-		$version = ( array_key_exists("version", $_POST) ? substr($_POST["version"], 0, 32) : "" );
-		$summary = ( array_key_exists("summary", $_POST) ? substr($_POST["summary"], 0, 255) : "" );
-		doSimpleCommand("insert into $gDataTable set createdate=" . time() . 
-						", authkey='$gAuthkey'" .
-						", referer='" . substr($_SERVER["HTTP_REFERER"], 0, 255) . "'" .
-						", browser='" . substr($_SERVER["HTTP_USER_AGENT"], 0, 255) . "'" .
-						", title='$title'" .
-						", version='$version'" .
-						", summary='$summary'" .
-						", appname='$appname'" .
-						", json='$json';");
+		$title = mysqlEscape( ( array_key_exists("title", $_POST) ? substr($_POST["title"], 0, 255) : "" ) );
+		$version = mysqlEscape( ( array_key_exists("version", $_POST) ? substr($_POST["version"], 0, 32) : "" ) );
+		$summary = mysqlEscape( ( array_key_exists("summary", $_POST) ? substr($_POST["summary"], 0, 255) : "" ) );
+		$cmd = "insert into $gDataTable set createdate=" . time() . 
+			", authkey='$gAuthkey'" .
+			", referer='" . substr($_SERVER["HTTP_REFERER"], 0, 255) . "'" .
+			", browser='" . substr($_SERVER["HTTP_USER_AGENT"], 0, 255) . "'" .
+			", title='$title'" .
+			", version='$version'" .
+			", summary='$summary'" .
+			", appname='$appname'" .
+			", json='$json';";
+		doSimpleCommand($cmd);
 
 		echo <<<OUTPUT
 <html>
