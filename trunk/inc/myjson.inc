@@ -41,9 +41,9 @@ if ( $gAuthkey ) {
 #results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
 #filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #C66300; color: #FFF; padding: 2px 4px; background: #C66300; }
 #filterbtn:hover { background: #E70; border: 1px solid #E03105; }
-.jsonlink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #630; font-size: 0.9em; }
+.jsonlink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #630; font-size: 0.9em; margin: 0 0.2em 0 0.2em; }
 .jsonlink:hover { background: #C66300; color: #FFF; }
-.removelink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #900; font-size: 0.9em; }
+.removelink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #900; font-size: 0.9em; margin: 0 0.2em 0 0.2em; }
 .removelink:hover { background: #900; color: #FFF; }
 </style>
 
@@ -66,7 +66,7 @@ if ( $gAuthkey ) {
 </table>
 OUTPUT;
 
-	$query = "select dataid, createDate, referer, appname, title, browser, version, summary from data where authkey='$gAuthkey' $sConds order by createDate desc limit 1000;";
+	$query = "select dataid, public, createDate, referer, appname, title, browser, version, summary from data where authkey='$gAuthkey' $sConds order by createDate desc limit 1000;";
 	$result = doQuery($query);
 
 	if ( $result ) {
@@ -77,10 +77,11 @@ OUTPUT;
 				echo <<<OUTPUT
 <div style="width: 1200px;">
 <table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>
-<tr> <th>Date</th> <th>JSON</th> <th>App</th> <th style="width: 300px;">Website</th> <th>Summary</th> <th>Browser</th> <th>&nbsp;</th> </tr>
+<tr> <th>Date</th> <th>JSON</th> <th>Public</th> <th>App</th> <th style="width: 300px;">Website</th> <th>Summary</th> <th>Browser</th> </tr>
 OUTPUT;
 			}
 			$dataid = $row['dataid'];
+			$checked = ( $row['public'] ? " checked" : "" );
 			$date = $row['createDate'];
 			$date = date("n/j/Y H:i", $date);
 			$url = $row['referer'];
@@ -91,8 +92,11 @@ OUTPUT;
 			$browser = parseUserAgent($row['browser']);
 			$title = $row['title'];
 			$title = substr(( $title ? $title : $url ), 0, 64);
-			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> <td align=center><a class=jsonlink href='view?id=$dataid'>view</a>   <a class=jsonlink href='export?id=$dataid'>export</a></td> <td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
-				" <td><a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> </tr>\n";
+			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> " .
+				"<td style='text-align: center;'><a class=jsonlink href='view?id=$dataid'>view</a> <a class=jsonlink href='export?id=$dataid'>export</a> <a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> " .
+				"<td style='text-align: center;'><input type=checkbox name=public$checked onclick='togglePublic($dataid, \"$checked\", this)'></td> " .
+				"<td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
+				" </tr>\n";
 		}
 		mysql_free_result($result);
 		if ( ! $bFirst ) {
@@ -108,6 +112,16 @@ function toggleSearchForm() {
 
 	var filterbtn = document.getElementById('filterbtn');
 	filterbtn.innerHTML = ( bShow ? "filter &lsaquo;&lsaquo;" : "filter &rsaquo;&rsaquo;" );	
+}
+
+function togglePublic(dataid, bPublicNow, elem) {
+	// don't bother to check if they're making they're making it private
+	if ( !bPublicNow && !confirm("Are you sure you want to make this data public to the world?") ) {
+		elem.checked = false;
+		return;
+	}
+
+	new Image().src = "http://jdrop.org/publish?id=" + dataid + "&pub=" + ( bPublicNow ? "0" : "1" );
 }
 
 function doDelete(dataid) {
