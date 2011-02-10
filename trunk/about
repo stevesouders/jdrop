@@ -15,9 +15,17 @@ $gTitle = "JDrop about";
 <?php insertStyles() ?>
 
 <style>
-H2 { margin-top: 40px; }
-#aboutlinks TD { padding: 8px 4px; vertical-align: middle; text-align: right; font-size: 1.1em; }
-#aboutlinks TD + TD { text-align: left; font-size: 0.9em; }
+H2 { margin-top: 40px; margin-bottom: 4px; font-size: 32px; }
+#aboutlinks { list-style-type: none; padding: 0; }
+#aboutlinks LI { display: inline; }
+#aboutlinks A { text-decoration: none; font-weight: bold; background: #C66300; padding: 4px 8px; margin: 4px; color: white; }
+#aboutlinks A:hover { text-decoration: none; background: #E70; }
+
+.qlist { list-style-type: none; padding-left: 20px; margin-top: 8px; }
+.qlist A { text-decoration: none; }
+.qlist A:hover { text-decoration: underline; }
+.q { font-size: 1.4em; color: #000; margin: 30px 0 4px 0; }
+.a { color: #333; }
 </style>
 
 </head>
@@ -26,25 +34,53 @@ H2 { margin-top: 40px; }
 
 <?php insertHeader($gTitle) ?>
 
-<table id=aboutlinks cellpadding=0 cellspacing=0 border=0>
-<tr> 
-  <td><a href="http://groups.google.com/group/jdrop/topics">Contact us</a></td>
-  <td>- submit a new post to the JDrop discussion list</td>
-</tr>
-<tr> 
-  <td><a href="http://code.google.com/p/jdrop/source/browse">Source code</a></td>
-  <td>- browse and checkout the source code</td>
-</tr>
-<tr> 
-  <td><a href="http://code.google.com/p/jdrop/issues/list">Bug list</a></td>
-  <td>- view and create bugs</td>
-</tr>
-<tr> 
-  <td><a href="devdocs">JDrop Dev Docs</a></td>
-  <td>- learn how to make your mobile bookmarklet work with JDrop</td>
-</tr>
-</table>
+<ul id=aboutlinks>
+   <li> <a href="http://groups.google.com/group/jdrop/topics">Contact us</a>
+   <li> <a href="http://code.google.com/p/jdrop/source/browse">Source code</a>
+   <li> <a href="http://code.google.com/p/jdrop/issues/list">Bug list</a>
+   <li> <a href="devdocs">Dev Docs</a>
+</ul>
 
+<?php
+insertAbout(); 
+insertHowTo();
+?>
+
+<h2>FAQ</h2>
+<?php
+$aQs = 
+	array(
+		  array("Who created JDrop?",
+				"who",
+				"JDrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily especially with his <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> project." ),
+		  array("How do I convert my bookmarklet or app to use JDrop?",
+				"devdocs",
+				"Instructions for integrating with JDrop can be found in our <a href='devdocs'>Dev Docs</a>."),
+		  array("Who do I contact for more information?",
+				"contact",
+				"You can reach the JDrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>JDrop discussion list</a>.")
+		  );
+
+$qlist = "";
+$qs = "";
+for ( $i = 0; $i < count($aQs); $i++ ) {
+	list($question, $anchor, $answer) = $aQs[$i];
+	$qlist .= "  <li> <a href='#$anchor'>$question</a>\n";
+	$qs .= <<<OUTPUT
+<a name="$anchor"></a>
+<div class=q>$question</div>
+<div class=a>$answer</div>
+OUTPUT;
+}
+
+echo <<<OUTPUT
+<ul class=qlist>
+$qlist
+</ul>
+
+$qs
+OUTPUT;
+?>
 
 </body>
 
