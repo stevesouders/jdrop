@@ -1,5 +1,4 @@
 <?php
-
 // return the "username" based on cookies
 function getAuthkey() {
 	if (array_key_exists("user", $_COOKIE)) {
@@ -41,6 +40,28 @@ function clearAuthkey() {
 require_once('secrets.inc');
 function hashForKey($authkey, $provider) {
   return md5("$authkey-$provider-" . SALT);
+}
+
+
+$ghAuthUsers = array("jamespearce (Twitter)" => 1,
+					 "souders (Twitter)" => 1,
+					 "stevesoudersorg (Google)" => 1
+					 );
+
+function authUser() {
+	global $ghAuthUsers;
+	return ( getAuthkey() && array_key_exists(getAuthkey(), $ghAuthUsers) );
+}
+
+
+if ( !authUser() &&
+	 ! ( $_SERVER["REQUEST_URI"] === "/" || 
+		 $_SERVER["REQUEST_URI"] === "/home" || 
+		 0 === strpos($_SERVER["REQUEST_URI"], "/oauth") ||
+		 0 === strpos($_SERVER["REQUEST_URI"], "/dev") ) 
+	 ) {
+	header("HTTP/1.0 401 Unauthorized");
+	exit();
 }
 
 ?>
