@@ -89,6 +89,7 @@ function createTables() {
 		$command = "create table $gDataTable (" .
 			"dataid int unsigned not null auto_increment" .
 			", authkey varchar (32) not null" .
+			", public tinyint(1) not null" .
 			", createDate int(10) unsigned not null" .
 			", referer varchar (255) not null" .
 			", browser varchar (255) not null" .
