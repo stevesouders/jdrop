@@ -1,0 +1,17 @@
+<?php
+require_once("inc/db.inc");
+require_once("inc/auth.inc");
+
+$gAuthkey = getAuthkey();
+$gDataid = ( array_key_exists("id", $_GET) ? $_GET["id"] : false );
+$gbPublish = ( array_key_exists("pub", $_GET) ? $_GET["pub"] : 0 );
+
+if ( $gAuthkey && $gDataid ) {
+	$realAuthkey = doSimpleQuery("select authkey from $gDataTable where dataid=$gDataid;");
+	if ( $realAuthkey && $realAuthkey === $gAuthkey ) {
+		$cmd = "update $gDataTable set public=" . ( $gbPublish ? '1' : '0' ) . " where dataid=$gDataid;";
+		doSimpleCommand($cmd);
+	}
+}
+header("HTTP/1.0 204 No Content");
+?>
