@@ -98,7 +98,7 @@ If needed, here are links to the individual bookmarklets for mobile.
 <td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
 <td valign=top>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://jdrop.org/bookmarklets/dommonster-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">DOM Monster with Jdrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://mir.aculo.us/dom-monster/dommonster.1.3.0a1.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">DOM Monster with Jdrop</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>
