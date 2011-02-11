@@ -1,4 +1,6 @@
 <?php
+require_once('utils.inc');
+
 // return the "username" based on cookies
 function getAuthkey() {
 	if (array_key_exists("user", $_COOKIE)) {
@@ -37,7 +39,13 @@ function clearAuthkey() {
 	setcookie("user", "", 0, "/");
 }
 
-require_once('secrets.inc');
+// secrets.inc is NOT in SVN so let's help people during installation if they forgot to configure it
+if ( !include_once('secrets.inc') ) {
+	dprint("inc/secrets.inc is missing");
+	echo "inc/secrets.inc is missing\n";
+	exit();
+}
+
 function hashForKey($authkey, $provider) {
   return md5("$authkey-$provider-" . SALT);
 }
