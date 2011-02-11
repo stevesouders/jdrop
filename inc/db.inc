@@ -1,7 +1,12 @@
 <?php
 
 require_once("utils.inc");
-require_once('secrets.inc');
+// secrets.inc is NOT in SVN so let's help people during installation if they forgot to configure it
+if ( !include_once('secrets.inc') ) {
+	dprint("inc/secrets.inc is missing");
+	echo "inc/secrets.inc is missing\n";
+	exit();
+}
 
 $gMysqlServer = "db.jdrop.org";
 $gMysqlDb = "jdrop";
