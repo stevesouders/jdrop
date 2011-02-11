@@ -42,11 +42,11 @@
 	  }
 	  summary += document.getElementsByTagName('*').length + ' elements';
 	  summary = summary.replace("'", "\\'");
-	  JR.SaveToJDrop("DOM Monster", hResults, JR.Version, summary);
+	  JR.SaveToJdrop("DOM Monster", hResults, JR.Version, summary);
   };
 
-  JR.SaveToJDrop = function(appname, myDataObj, version, summary) {
-	  // create object of parameters to pass to JDrop
+  JR.SaveToJdrop = function(appname, myDataObj, version, summary) {
+	  // create object of parameters to pass to Jdrop
 	  var params = { "appname": appname,
 					 "title": document.title, 
 					 "version": version,
@@ -82,9 +82,9 @@
 	  jdropform.submit();
   };
 
-  JR.JDropCallback = function(jsonobj) {
+  JR.JdropCallback = function(jsonobj) {
       if ( ! document.getElementById("jr_results_prognosis_container") ) {
-		  setTimeout(function() { JR.JDropCallback(jsonobj); }, 500);
+		  setTimeout(function() { JR.JdropCallback(jsonobj); }, 500);
 		  return;
 	  }
 	  JR._lines.warn = jsonobj['warn'];
@@ -667,7 +667,7 @@
           '</div>'+
           '<div style="'+JR.reset+'float:right;padding:7px 10px 0px 10px;">'+
           '<span style="'+JR.reset+'color:#888;font-size:10px;text-decoration:underline;cursor:pointer" onclick="JR.saveResults()">'+
-            'save to JDrop'+
+            'save to Jdrop'+
           '</span>'+
           '<span style="'+JR.reset+'padding-left:10px;color:#888;font-size:10px;text-decoration:underline;cursor:pointer" onclick="JR.close()">'+
             'close'+
