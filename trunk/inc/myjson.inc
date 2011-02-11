@@ -6,7 +6,11 @@ require_once("inc/uaparser.inc");
 
 $gAuthkey = getAuthkey();
 
-if ( $gAuthkey ) {
+if ( !isset($gbViewPublic) ) {
+	$gbViewPublic = false;
+}
+
+if ( $gAuthkey || $gbViewPublic ) {
 	$pApp = ( array_key_exists("app", $_GET) ? $_GET["app"] : "" );
 	$pSite = ( array_key_exists("site", $_GET) ? $_GET["site"] : "" );
 	$pUrl = ( array_key_exists("url", $_GET) ? $_GET["url"] : "" );
@@ -66,7 +70,9 @@ if ( $gAuthkey ) {
 </table>
 OUTPUT;
 
-	$query = "select dataid, public, createDate, referer, appname, title, browser, version, summary from data where authkey='$gAuthkey' $sConds order by createDate desc limit 1000;";
+	$query = "select dataid, public, createDate, referer, appname, title, browser, version, summary from data where " .
+		( $gbViewPublic ? "public=1 " : "authkey='$gAuthkey' " ) .
+		"$sConds order by createDate desc limit 1000;";
 	$result = doQuery($query);
 
 	if ( $result ) {
@@ -74,11 +80,11 @@ OUTPUT;
 		while ( $row = mysql_fetch_assoc($result) ) {
 			if ( $bFirst ) {
 				$bFirst = false;
-				echo <<<OUTPUT
-<div style="width: 1200px;">
-<table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>
-<tr> <th>Date</th> <th>JSON</th> <th>Public</th> <th>App</th> <th style="width: 300px;">Website</th> <th>Summary</th> <th>Browser</th> </tr>
-OUTPUT;
+				echo "<div style='width: 1200px;'>\n" .
+					"<table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>\n" .
+					"<tr> <th>Date</th> <th>JSON</th> " .
+					( $gbViewPublic ? "" : "<th>Public</th> " ) .
+					"<th>App</th> <th style='width: 300px;'>Website</th> <th>Summary</th> <th>Browser</th> </tr>\n";
 			}
 			$dataid = $row['dataid'];
 			$checked = ( $row['public'] ? " checked" : "" );
@@ -93,8 +99,9 @@ OUTPUT;
 			$title = $row['title'];
 			$title = substr(( $title ? $title : $url ), 0, 64);
 			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> " .
-				"<td style='text-align: center;'><a class=jsonlink href='view?id=$dataid'>view</a> <a class=jsonlink href='export?id=$dataid'>export</a> <a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> " .
-				"<td style='text-align: center;'><input type=checkbox name=public$checked onclick='togglePublic($dataid, \"$checked\", this)'></td> " .
+				"<td style='text-align: center;'><a class=jsonlink href='view?id=$dataid'>view</a> <a class=jsonlink href='export?id=$dataid'>export</a> " .
+				( $gbViewPublic ? "" : "<a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> " ) .
+				( $gbViewPublic ? "" : "<td style='text-align: center;'><input type=checkbox name=public$checked onclick='togglePublic($dataid, \"$checked\", this)'></td> " ) .
 				"<td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
 				" </tr>\n";
 		}
