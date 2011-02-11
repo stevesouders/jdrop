@@ -3,7 +3,7 @@ require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
 
-$gTitle = "JDrop";
+$gTitle = "Jdrop";
 ?>
 <!doctype html>
 <html>

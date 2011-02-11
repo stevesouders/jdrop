@@ -10,7 +10,7 @@ if ( ! $gAuthkey ) {
 <html>
 <body>
 <script type="text/javascript">
-alert("You're not currently logged in to JDrop. Please go to http://jdrop.org/ and login.");
+alert("You're not currently logged in to Jdrop. Please go to http://jdrop.org/ and login.");
 </script>
 </body>
 </html>
@@ -51,7 +51,7 @@ OUTPUT;
 <html>
 <body>
 <script type="text/javascript">
-alert("Your data wasn't saved - there's no app named \"$appname\" registered at JDrop.");
+alert("Your data wasn't saved - there's no app named \"$appname\" registered at Jdrop.");
 </script>
 </body>
 </html>

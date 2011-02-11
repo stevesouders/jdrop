@@ -2,7 +2,7 @@
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 
-$gTitle = "JDrop apps";
+$gTitle = "Jdrop apps";
 ?>
 <!doctype html>
 <html>
@@ -25,9 +25,9 @@ H2 { margin-top: 40px; }
 <?php insertHeader($gTitle) ?>
 
 <p>
-Right now JDrop is focused on mobile bookmarklets. 
+Right now Jdrop is focused on mobile bookmarklets. 
 This version of the Mobile Perf bookmarklet (see <a href="http://stevesouders.com/mobileperf/mobileperfbkm.php">original site</a>)
-contains bookmarklets that have been converted to use JDrop.
+contains bookmarklets that have been converted to use Jdrop.
 </p>
 
 <style>
@@ -38,7 +38,7 @@ OL, OL LI { margin: 0 0 0 10px; padding: 0; }
 <td valign=top style="padding-right: 8px;"><strong>DESKTOP:</strong></td>
 <td valign=top>Drag this link to your bookmarks toolbar or add it to your favorites:
 <div>
-<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with JDrop
+<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop
 <img border=0 src="http://stevesouders.com/mobileperf/drag-this-link-107x32.png" width=107 height=32 style="vertical-align: bottom;"></a>
 </div>
 </td>
@@ -53,7 +53,7 @@ OL, OL LI { margin: 0 0 0 10px; padding: 0; }
 <td valign=top>
 <div>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with JDrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>
@@ -76,7 +76,7 @@ If needed, here are links to the individual bookmarklets for mobile.
 <td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
 <td valign=top>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/pageresources-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Page Resources with JDrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/pageresources-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Page Resources with Jdrop</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>
@@ -87,7 +87,7 @@ If needed, here are links to the individual bookmarklets for mobile.
 <td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
 <td valign=top>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/docsource-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Docsource with JDrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/docsource-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Docsource with Jdrop</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>
@@ -98,7 +98,7 @@ If needed, here are links to the individual bookmarklets for mobile.
 <td valign=top style="padding-right: 8px;"><strong>MOBILE:</strong></td>
 <td valign=top>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://jdrop.org/bookmarklets/dommonster-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">DOM Monster with JDrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://jdrop.org/bookmarklets/dommonster-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">DOM Monster with Jdrop</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>

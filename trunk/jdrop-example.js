@@ -1,8 +1,8 @@
-// Code to embed in your bookmarklet to make it work with JDrop.
+// Code to embed in your bookmarklet to make it work with Jdrop.
 // See http://jdrop.org/devdocs
 
-function SaveToJDrop(appname, myDataObj, version, summary) {
-	// create object of parameters to pass to JDrop
+function SaveToJdrop(appname, myDataObj, version, summary) {
+	// create object of parameters to pass to Jdrop
 	var params = { "appname": appname,
 	               "title": document.title, 
 	               "version": version,
@@ -39,7 +39,7 @@ function SaveToJDrop(appname, myDataObj, version, summary) {
 }
 
 
-function JDropCallback(jsonobj) {
+function JdropCallback(jsonobj) {
 	// code to display data
 }
 
