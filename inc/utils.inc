@@ -45,6 +45,15 @@ function getWelcome($username) {
 }
 
 
+function insertViewPublic() {
+	echo <<<OUTPUT
+<div style="float: right; margin-left: 40px; font-size: 0.9em;">
+you can also <a href="public">view public JSON</a>
+</div>
+OUTPUT;
+}
+
+
 function insertAbout() {
 	echo <<<OUTPUT
 <p style="margin-top: 20px;">
