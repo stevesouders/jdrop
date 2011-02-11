@@ -20,7 +20,11 @@ $gTitle = "JDrop myJSON";
 
 <body>
 
-<?php insertHeader($gTitle) ?>
+<?php 
+insertHeader($gTitle);
+insertViewPublic();
+?>
+
 
 <?php
 if ( ! $gUsername ) {
