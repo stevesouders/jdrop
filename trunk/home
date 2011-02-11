@@ -19,7 +19,10 @@ $gTitle = "JDrop";
 
 <body>
 
-<?php insertHeader($gTitle . "<span style='margin-left: 20px; font-size: 24px; font-style: italic; font-weight: normal;'>JSON in the cloud</span>") ?>
+<?php 
+insertHeader($gTitle . "<span style='margin-left: 20px; font-size: 24px; font-style: italic; font-weight: normal;'>JSON in the cloud</span>");
+insertViewPublic();
+?>
 
 <?php 
 $numrows = 0;
