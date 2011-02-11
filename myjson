@@ -5,7 +5,7 @@ require_once("inc/db.inc");
 require_once("inc/uaparser.inc");
 
 $gUsername = getUsername();
-$gTitle = "JDrop myJSON";
+$gTitle = "Jdrop myJSON";
 ?>
 <!doctype html>
 <html>

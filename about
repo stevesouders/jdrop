@@ -2,7 +2,7 @@
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 
-$gTitle = "JDrop about";
+$gTitle = "Jdrop about";
 ?>
 <!doctype html>
 <html>
@@ -50,15 +50,15 @@ insertHowTo();
 <?php
 $aQs = 
 	array(
-		  array("Who created JDrop?",
+		  array("Who created Jdrop?",
 				"who",
-				"JDrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily especially with his <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> project." ),
-		  array("How do I convert my bookmarklet or app to use JDrop?",
+				"Jdrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily especially with his <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> project." ),
+		  array("How do I convert my bookmarklet or app to use Jdrop?",
 				"devdocs",
-				"Instructions for integrating with JDrop can be found in our <a href='devdocs'>Dev Docs</a>."),
+				"Instructions for integrating with Jdrop can be found in our <a href='devdocs'>Dev Docs</a>."),
 		  array("Who do I contact for more information?",
 				"contact",
-				"You can reach the JDrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>JDrop discussion list</a>.")
+				"You can reach the Jdrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>Jdrop discussion list</a>.")
 		  );
 
 $qlist = "";
