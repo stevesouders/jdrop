@@ -1,50 +1,21 @@
 <?php
+require_once("inc/ui.inc");
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
 require_once("inc/uaparser.inc");
 
+ui_head("My JSON");
+
 $gUsername = getUsername();
-$gTitle = "Jdrop myJSON";
-?>
-<!doctype html>
-<html>
 
-<head>
-<title><?php echo $gTitle ?></title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-<?php insertStyles() ?>
-
-</head>
-
-<body>
-
-<?php 
-insertHeader($gTitle);
-insertViewPublic();
-?>
-
-
-<?php
 if ( ! $gUsername ) {
-	insertLoginForm();
-	echo <<<OUTPUT
-<p class=warning>
-Please sign in to an account to view your data.
-</p>
-OUTPUT;
-}
-else {
-	echo <<<OUTPUT
-<h2>
-JSON for <em>$gUsername</em>:
-</h2>
-OUTPUT;
+	print "<p class=warning'>Please sign in to an account to view your data.</p>";
+} else {
+    print "<h3>JSON for <em>$gUsername</em>:</h3>";
 	require_once("inc/myjson.inc");
 }
+
+ui_foot();
+
 ?>
-
-</body>
-
-</html>

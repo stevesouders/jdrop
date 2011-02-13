@@ -15,22 +15,34 @@ table{
 
 html {
   background:#eee;
+  font-family:georgia,times,sans-serif;
+  overflow-y:scroll;
 }
 
 body {
-  background:#fff;
-  font-family:Georgia;
+  border-top:5px solid #fa711c;
+  background:#e7e7e7;
+}
+
+header, nav, section#account, footer {
+  font-family:"trebuchet MS",tahoma,helvetica,sans-serif;
 }
 
 header {
-  background:url(images/tile.png);
-  height: 200px;
+  background:#94bfd5 url(images/tile.png);
+  height: 160px;
+  border-top:1px solid #fff;
 }
 
-header>hgroup, nav, article, footer>section {
+header>hgroup, nav>ul, article, footer>section {
   width:940px;
   margin:0 auto;
   clear:both;
+}
+
+header>hgroup {
+  background: url(images/loops.png) 100% 0 no-repeat;
+  height:160px;
 }
 
 header>hgroup>h1 {
@@ -40,28 +52,175 @@ header>hgroup>h1 {
   overflow:hidden;
   background:url(images/logo.png);
   width:180px;
-  line-height:180px;
+  line-height:140px;
   margin:10px 0;
 }
 
 header>hgroup>h2 {
   float:right;
   color:white;
-  font-family:"trebuchet MS",tahoma,helvetica,sans-serif;
   font-weight:normal;
-  margin:80px 0;
+  margin:60px 0;
   line-height:40px;
 }
 
 nav {
   background:#000;
   color:white;
+  border-top:1px solid #fff;
+  border-bottom:1px solid #fff;
+  line-height:32px;
+  -webkit-box-shadow:0 0 10px rgba(64, 64, 64, 0.5)
+}
+nav ul {
+  background: url(images/loops.png) 100% -160px no-repeat;
+  text-align:center;
+  padding:5px 0;
+}
+nav ul li {
+  display:inline;
+  list-style:none;
+  text-transform:uppercase;
+  color:#94bfd5;
+}
+nav ul li:after {
+  content: '//'
+}
+nav ul li:last-child:after {
+  content: ''
+}
+nav ul li a {
+  color:#fff;
+  margin:0 1em;
+  text-decoration:none;
+}
+nav ul li a.active {
+  color:#fa711c;
+}
+
+section#account {
+  float:right;
+  -webkit-border-radius:4px;
+  -webkit-box-shadow:0 0px 4px rgba(64, 64, 64, 0.5)
+}
+
+section#account.loggedout {
+  width:280px;
+  margin-left:20px;
+  padding:10px;
+  margin-bottom:60px;
+  background:#e7e7e7;
+  text-align:center;
+  border:1px solid #fff;
+}
+section#account.loggedout ul {
+  display:inline-block;
+}
+section#account.loggedout li {
+  line-height:40px;
+  list-style:none;
+  text-align:left;
+}
+section#account.loggedout a.login {
+  padding:10px;
+  background-position:0 50%;
+  background-repeat:no-repeat;
+  padding-left:40px;
+}
+section#account.loggedout a.twitter {
+  background-image:url(images/twitter.png);
+}
+section#account.loggedout a.google {
+  background-image:url(images/google.png);
+}
+
+section#account.loggedin {
+  margin-top:-26px;
+  margin-right:-20px;
+  text-align:right;
+  white-space:nowrap;
+  background:#000;
+  color:#fff;
+  font-size:0.8em;
+  padding:5px;
+  text-shadow:none;
+}
+section#account.loggedin a {
+  color:#fff;
+}
+
+article {
+  margin:auto;
+  padding:20px;
+  width:920px;
+  background:#f0f0f0;
+  -webkit-box-shadow:0 0 20px rgba(64, 64, 64, 0.125);
+  text-shadow:0 1px 1px #fff;
+  min-height:200px;
+}
+article:after {
+  content:'';
+  clear:both;
+  display:block;
+}
+
+article h1, article h2, article h3 {
+  padding:0.5em 0 0.2em;
+}
+article ul, article p {
+  margin-bottom:20px;
+}
+
+article a {
+  color:#BE490E;
+  font-weight:bold;
+}
+
+ul.inline {
+  margin-top:10px;
+  list-style-type:none;
+}
+ul.inline li {
+  display: inline;
+}
+ul.inline a {
+  text-decoration: none;
+  font-weight: bold;
+  background: #fa711c;
+  color:#000;
+  padding: 4px 8px;
+  margin-right: 4px;
 }
 
 footer {
-  background: orange;
+  clear:both;
+  background: #fa711c;
+  color:white;
+  font-size:0.8em;
+  text-align:center;
+  border-top:1px solid #fff;
+  -webkit-box-shadow:0 0 10px rgba(64, 64, 64, 0.5)
 }
 
-img {
-  border:red 2px solid;
+footer section {
+  height:80px;
+  background: url(images/loops.png) 50% 0 no-repeat;
+  padding:10px;
 }
+
+
+/*verbatim*/
+DT { font-weight: bold; margin-top: 6px; }
+DL { font-size: 0.9em; margin-left: 20px; }
+.example { font-family: monospace; }
+pre.scrollcode {
+	overflow-x: auto;
+  overflow-y:hidden;
+	border: 0;
+	background: #fff;
+  border:1px solid #ddd;
+	font-family: monospace;
+	line-height: 1em;
+  padding:1em;
+}
+

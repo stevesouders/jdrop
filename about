@@ -1,88 +1,48 @@
-<?php 
+<?php
+
+require_once("inc/ui.inc");
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
+require_once("inc/db.inc");
+require_once("inc/uaparser.inc");
 
-$gTitle = "Jdrop about";
+ui_head("About");
+
 ?>
-<!doctype html>
-<html>
 
-<head>
-<title><?php echo $gTitle ?></title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="mobile phone developer software development debug performance">
-
-<?php insertStyles() ?>
-
-<style>
-H2 { margin-top: 40px; margin-bottom: 4px; font-size: 32px; }
-#aboutlinks { list-style-type: none; padding: 0; }
-#aboutlinks LI { display: inline; }
-#aboutlinks A { text-decoration: none; font-weight: bold; background: #C66300; padding: 4px 8px; margin: 4px; color: white; }
-#aboutlinks A:hover { text-decoration: none; background: #E70; }
-
-.qlist { list-style-type: none; padding-left: 20px; margin-top: 8px; }
-.qlist A { text-decoration: none; }
-.qlist A:hover { text-decoration: underline; }
-.q { font-size: 1.4em; color: #000; margin: 30px 0 4px 0; }
-.a { color: #333; }
-</style>
-
-</head>
-
-<body>
-
-<?php insertHeader($gTitle) ?>
-
-<ul id=aboutlinks>
-   <li> <a href="http://groups.google.com/group/jdrop/topics">Contact us</a>
-   <li> <a href="http://code.google.com/p/jdrop/source/browse">Source code</a>
-   <li> <a href="http://code.google.com/p/jdrop/issues/list">Bug list</a>
-   <li> <a href="devdocs">Dev Docs</a>
+<ul class='inline'>
+    <li> <a href="http://groups.google.com/group/jdrop/topics">Contact us</a>
+    <li> <a href="http://code.google.com/p/jdrop/source/browse">Source code</a>
+    <li> <a href="http://code.google.com/p/jdrop/issues/list">Bug list</a>
+    <li> <a href="/devdocs">Dev Docs</a>
 </ul>
 
 <?php
-insertAbout(); 
+insertAbout();
 insertHowTo();
-?>
-
-<h2>FAQ</h2>
-<?php
-$aQs = 
-	array(
-		  array("Who created Jdrop?",
-				"who",
-				"Jdrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily especially with his <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> project." ),
-		  array("How do I convert my bookmarklet or app to use Jdrop?",
-				"devdocs",
-				"Instructions for integrating with Jdrop can be found in our <a href='devdocs'>Dev Docs</a>."),
-		  array("Who do I contact for more information?",
-				"contact",
-				"You can reach the Jdrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>Jdrop discussion list</a>.")
-		  );
 
 $qlist = "";
 $qs = "";
-for ( $i = 0; $i < count($aQs); $i++ ) {
-	list($question, $anchor, $answer) = $aQs[$i];
-	$qlist .= "  <li> <a href='#$anchor'>$question</a>\n";
-	$qs .= <<<OUTPUT
-<a name="$anchor"></a>
-<div class=q>$question</div>
-<div class=a>$answer</div>
-OUTPUT;
+foreach(array(
+    array("Who created Jdrop?",
+        "who",
+        "Jdrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> helped out."
+    ),
+    array("How do I convert my bookmarklet or app to use Jdrop?",
+        "devdocs",
+        "Instructions for integrating with Jdrop can be found in our <a href='devdocs'>Dev Docs</a>."
+    ),
+    array("Who do I contact for more information?",
+        "contact",
+        "You can reach the Jdrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>Jdrop discussion list</a>."
+    )
+) as $q) {
+    list($question, $link, $answer) = $q;
+	$qlist .= "<li><a href='#$anchor'>$question</a></li>";
+	$qs .= "<a name='$anchor'></a><h3>$question</h3><p>$answer</p>";
 }
 
-echo <<<OUTPUT
-<ul class=qlist>
-$qlist
-</ul>
+print "<h2>FAQ</h2><ul>$qlist</ul>$qs";
 
-$qs
-OUTPUT;
+ui_foot();
 ?>
-
-</body>
-
-</html>
-
