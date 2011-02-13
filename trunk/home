@@ -3,28 +3,15 @@ require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
 
-$gTitle = "Jdrop";
-?>
-<!doctype html>
-<html>
+require_once("inc/ui.inc");
 
-<head>
-<title><?php echo $gTitle ?></title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="mobile json phone developer software development debug performance">
+ui_head("Welcome");
 
-<?php insertStyles() ?>
 
-</head>
-
-<body>
-
-<?php 
-insertHeader($gTitle . "<span style='margin-left: 20px; font-size: 24px; font-style: italic; font-weight: normal;'>JSON in the cloud</span>");
 insertViewPublic();
 ?>
 
-<?php 
+<?php
 $numrows = 0;
 $gAuthkey = getAuthkey();
 if ( ! $gAuthkey ) {
@@ -35,14 +22,13 @@ else {
 }
 
 if ( ! $numrows ) {
-	insertAbout(); 
+	insertAbout();
 	insertHowTo();
 }
 else {
 	require_once("inc/myjson.inc");
 }
+
+ui_foot();
+
 ?>
-
-</body>
-
-</html>
