@@ -17,6 +17,7 @@ function getAuthkey() {
 
 // return the "username" based on cookies
 function getUsername() {
+  //return 'souders';
 	if (array_key_exists("user", $_COOKIE)) {
 		if ($keyAndHash = $_COOKIE["user"]) {
 			list($key, $provider, $hash) = split("\t", $keyAndHash, 3);
@@ -24,7 +25,7 @@ function getUsername() {
 				return $key;
 			}
 		}
-    }
+  }
 	return "";
 }
 
@@ -63,10 +64,10 @@ function authUser() {
 
 /* add this if you want to restrict the site based on authkey
 if ( !authUser() &&
-	 ! ( $_SERVER["REQUEST_URI"] === "/" || 
-		 $_SERVER["REQUEST_URI"] === "/home" || 
+	 ! ( $_SERVER["REQUEST_URI"] === "/" ||
+		 $_SERVER["REQUEST_URI"] === "/home" ||
 		 0 === strpos($_SERVER["REQUEST_URI"], "/oauth") ||
-		 0 === strpos($_SERVER["REQUEST_URI"], "/dev") ) 
+		 0 === strpos($_SERVER["REQUEST_URI"], "/dev") )
 	 ) {
 	header("HTTP/1.0 401 Unauthorized");
 	exit();

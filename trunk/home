@@ -2,30 +2,21 @@
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
-
 require_once("inc/ui.inc");
 
-ui_head("Welcome");
+ui_head("Welcome to Jdrop");
 
-
-insertViewPublic();
-?>
-
-<?php
 $numrows = 0;
 $gAuthkey = getAuthkey();
-if ( ! $gAuthkey ) {
-	insertLoginForm();
-}
-else {
+
+if ( $gAuthkey ) {
     $numrows = doSimpleQuery("select count(*) from data where authkey='$gAuthkey';");
 }
 
 if ( ! $numrows ) {
 	insertAbout();
 	insertHowTo();
-}
-else {
+} else {
 	require_once("inc/myjson.inc");
 }
 

@@ -1,44 +1,11 @@
-<?php 
+<?php
+require_once("inc/ui.inc");
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
+require_once("inc/db.inc");
 
-$gTitle = "Jdrop dev docs";
+ui_head("Documentation");
 ?>
-<!doctype html>
-<html>
-
-<head>
-<title><?php echo $gTitle ?></title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="mobile phone developer software development debug performance">
-
-<?php insertStyles() ?>
-
-<style>
-H2 { margin-top: 40px; }
-LI { margin-top: 4px; margin-bottom: 4px; font-size: 0.9em; }
-OL OL { list-style-type: lower-alpha; }
-DT { font-weight: bold; margin-top: 6px; }
-DL { font-size: 0.9em; margin-left: 20px; }
-.example { font-family: monospace; }
-pre.scrollcode {
-	display: table-cell;
-	margin: 8px 20px;
-	overflow: auto;
-	border: 0;
-	background: #EEE;
-	padding: 8px;
-	font-family: monospace;
-	font-size: 10pt;
-	line-height: 1em;
-}
-</style>
-
-</head>
-
-<body>
-
-<?php insertHeader($gTitle) ?>
 
 <p>
 It's not hard, but it takes a few steps to make a bookmarklet work with Jdrop.
@@ -59,9 +26,9 @@ echo file_get_contents("jdrop-example.js");
 
 
 <ol>
-  <li> <b>SaveToJdrop</b>
+  <li> <h3>SaveToJdrop</h3>
 <div>
-Typically bookmarklets do two things: gather data and display data. 
+Typically bookmarklets do two things: gather data and display data.
 Package up that data in a single object and pass it to <code>SaveToJdrop</code> along with the name of your bookmarklet and a version number.
 (This <code>appname</code> is the one you used to register your app as described later.)
 Although optional, it's a good practice to specify a version number associated with the JSON format being saved.
@@ -69,22 +36,22 @@ That way, your rendering code can be backward compatible if the JSON format chan
 The <code>version</code> param is just a string, for example, <code>1.1.3</code>.
 </div>
 
-  <li> <b>JdropCallback</b>
+  <li> <h3>JdropCallback</h3>
 <div>
-Write a callback function that takes you data object and displays it in an empty page. 
+Write a callback function that takes you data object and displays it in an empty page.
 This function will be used in the <a href="view">Jdrop view page</a>.
 </div>
 
-  <li> <b>is JDROPVIEW defined?</b>
+  <li> <h3>is JDROPVIEW defined?</h3>
 <div>
 When your bookmarklet code is used in the <a href="view">Jdrop view page</a> to render the data,
 you don't want the bookmarklet analysis code to run.
 That's accomplished by only doing the bookmarklet analysis if <code>JDROPVIEW</code> is undefined.
 </div>
 
-  <li> <b>JSON</b>
+  <li> <h3>JSON</h3>
 <div>
-Include a definition of JSON for browsers that don't have it. I minify the code from 
+Include a definition of JSON for browsers that don't have it. I minify the code from
 <a href="http://www.json.org/js.html">json2.js</a> and inline that in my bookmarklet.
 </div>
 </ol>
@@ -92,7 +59,7 @@ Include a definition of JSON for browsers that don't have it. I minify the code 
 
 <p>
 In addition to these steps accomplished through using <a href="jdrop-example.js">jdrop-example.js</a>,
-you also have to add a "Save to Jdrop" link to your bookmarklet that calls your function. 
+you also have to add a "Save to Jdrop" link to your bookmarklet that calls your function.
 Something like this:
 </p>
 <div style="margin-left: 40px;">
@@ -104,9 +71,9 @@ Something like this:
 <a name="appregister"></a>
 <h2>App Register</h2>
 <p>
-The final step is to register your app. 
+The final step is to register your app.
 Once Jdrop is well established that'll be a self-service process.
-But for now now the only way to register your app is by posting a request to the 
+But for now now the only way to register your app is by posting a request to the
 <a href="http://groups.google.com/group/jdrop/topics">Jdrop discussion list</a>.
 Typically I'll get back to you within a few hours.
 </p>
@@ -117,7 +84,7 @@ This is the information needed to register your app:
 
 <dl style="margin-top: 0;">
   <dt> App Name (required)
-  <dd> The name of your app or bookmarklet. 
+  <dd> The name of your app or bookmarklet.
 <div class=example>
 example: Docsource
 </div>
@@ -152,7 +119,4 @@ example: haroutput
 </dl>
 
 
-</body>
-
-</html>
-
+<?php ui_foot(); ?>
