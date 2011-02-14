@@ -18,7 +18,7 @@ function ui_head($title) { // in lieu of decent templating
 }
 
 function ui_style() {
-  print "<link rel='stylesheet' href='/style.css' type='text/css' />";
+  print "<link rel='stylesheet' href='style.css' type='text/css' />";
 }
 
 function ui_nav() {
