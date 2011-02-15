@@ -24,6 +24,7 @@ require_once("inc/db.inc");
 require_once("inc/ui.inc");
 
 ui_head("Welcome to Jdrop");
+insertAbout();
 
 $numrows = 0;
 $gAuthkey = getAuthkey();
@@ -33,10 +34,13 @@ if ( $gAuthkey ) {
 }
 
 if ( ! $numrows ) {
-	insertAbout();
 	insertHowTo();
 } else {
+	$gMaxRows = 4;
 	require_once("inc/myjson.inc");
+	if ( $numrows > 4 ) {
+		echo "<p style='margin-top: 20px;'>See <a href='myjson'>all your JSON</a>.</p>\n";
+	}
 }
 
 ui_foot();
