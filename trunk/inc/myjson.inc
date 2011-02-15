@@ -29,6 +29,8 @@ if ( !isset($gbViewPublic) ) {
 	$gbViewPublic = false;
 }
 
+$gMaxRows = ( $gMaxRows ? $gMaxRows : 1000 );
+
 if ( $gAuthkey || $gbViewPublic ) {
 	$pApp = ( array_key_exists("app", $_GET) ? $_GET["app"] : "" );
 	$pSite = ( array_key_exists("site", $_GET) ? $_GET["site"] : "" );
@@ -92,7 +94,7 @@ OUTPUT;
 
 	$query = "select dataid, public, createDate, referer, appname, title, browser, version, summary from data where " .
 		( $gbViewPublic ? "public=1 " : "authkey='$gAuthkey' " ) .
-		"$sConds order by createDate desc limit 1000;";
+		"$sConds order by createDate desc limit $gMaxRows;";
 	$result = doQuery($query);
 
 	if ( $result ) {
