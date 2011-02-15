@@ -41,9 +41,6 @@ function insertHowTo() { ?>
     <li> Sign in to Jdrop </li>
     <li> view the <a href="myjson">JSON data</a> that you generated</li>
   </ul>
-  <p>
-   Checkout the <a href="example">example use case</a> for screenshots and more information.
-  </p>
 <?php }
 
 
