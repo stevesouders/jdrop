@@ -18,12 +18,14 @@ See the source code here:
      http://code.google.com/p/jdrop/
 */
 
+require_once("inc/ui.inc");
 require_once("inc/auth.inc");
 require_once("inc/utils.inc");
 require_once("inc/db.inc");
 require_once("inc/uaparser.inc");
 
-$gTitle = "Jdrop view";
+ui_head("View");
+
 $dataid = ( array_key_exists('id', $_GET) ? $_GET['id'] : "" );
 $gAuthkey = getAuthkey();
 
@@ -117,9 +119,6 @@ Select some data to view from your <a href="myjson">myJSON</a> list.
 </p>
 OUTPUT;
 }
+
+ui_foot();
 ?>
-
-
-</body>
-
-</html>
