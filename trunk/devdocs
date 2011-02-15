@@ -92,7 +92,7 @@ example: Docsource
   <dt> Script URL (required)
   <dd> The URL to your bookmarklet script.
 <div class=example>
-example: http://stevesouders.com/mobileperf/docsource-jdrop.js
+example: http://stevesouders.com/mobileperf/docsource.js
 </div>
 
   <dt> Callback Function (optional)
