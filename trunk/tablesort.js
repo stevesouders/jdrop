@@ -131,11 +131,11 @@ TS.showSort = function(th) {
 
 	var aPosition = TS.findPos(th);
 	tsdivup.style.left = (aPosition[0]+(th.clientWidth-tsdivup.saveW)) + "px";
-	tsdivup.style.top = (aPosition[1]) + "px";
+	tsdivup.style.top = (aPosition[1]+10) + "px";
 	tsdivup.style.display = "block";
 
 	tsdivdn.style.left = (aPosition[0]+(th.clientWidth-tsdivdn.saveW)) + "px";
-	tsdivdn.style.top = (aPosition[1]+(th.clientHeight-tsdivdn.saveH)) + "px";
+	tsdivdn.style.top = (aPosition[1]+10+(th.clientHeight-tsdivdn.saveH)) + "px";
 	tsdivdn.style.display = "block";
 };
 
@@ -143,7 +143,6 @@ TS.showSort = function(th) {
 TS.makeTsdiv = function() {
 	var tsdiv = document.createElement('div');
 	tsdiv.style.position = "absolute";
-	tsdiv.style.backgroundColor = "white";
 	tsdiv.style.fontSize = "14pt";
 	return tsdiv;
 };
