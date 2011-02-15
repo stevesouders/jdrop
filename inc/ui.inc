@@ -75,7 +75,7 @@ function ui_account() {
 
 function ui_foot() {
   print "</article><footer><section>";
-  print "&copy; 2011";
+  print "Jdrop &copy; 2011";
   print "</section></footer></body></html>";
 }
 
