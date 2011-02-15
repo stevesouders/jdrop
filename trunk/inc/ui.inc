@@ -10,7 +10,7 @@ function ui_head($title) { // in lieu of decent templating
   print "<meta name='keywords' content='mobile json phone developer software development debug performance' />";
   ui_style();
   print "</head><body>";
-  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header><nav><ul>";
+  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header><nav><ul class=navlinks>";
   ui_nav();
   print "</ul></nav><article>";
   ui_account();
@@ -24,11 +24,11 @@ function ui_style() {
 function ui_nav() {
   $here = $_SERVER['REQUEST_URI'];
   foreach (array(
-    'Home'=>'/home',
-    'My JSON'=>'/myjson',
-    'Public'=>'/public',
-    'Apps'=>'/apps',
-    'About'=>'/about'
+    'Home'=>'home',
+    'My JSON'=>'myjson',
+    'Public'=>'public',
+    'Apps'=>'apps',
+    'About'=>'about'
   ) as $name=>$link) {
     print "<li><a" . (stripos($here, $link)===0?" class='active'":"") . " href='$link'>$name</a></li>";
   }
@@ -49,7 +49,7 @@ function ui_account() {
     ) as $name=>$type) {
       print "<li><a href='oauth/twitter' class='$type login'>$name</a></li>";
     }
-    print "</ul><p>If you dont want to login,<br/>you can also <a href='/public'>view public JSON</a></p>";
+    print "</ul><p>If you don't want to login,<br/>you can also <a href='/public'>view public JSON</a></p>";
   }
   print "</section>";
 }
