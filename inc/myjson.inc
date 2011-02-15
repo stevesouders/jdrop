@@ -61,7 +61,7 @@ if ( $gAuthkey || $gbViewPublic ) {
 .label { font-weight: bold; text-align: right; }
 #search TD { padding: 2px 4px; font-size: 0.9em; }
 #results TH { border-bottom: 1px solid #000; padding: 12px 4px; }
-#results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; }
+#results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; vertical-align: middle; }
 #filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #C66300; color: #FFF; padding: 2px 4px; background: #C66300; }
 #filterbtn:hover { background: #E70; border: 1px solid #E03105; }
 .jsonlink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #630; font-size: 0.9em; margin: 0 0.2em 0 0.2em; }
@@ -74,7 +74,7 @@ if ( $gAuthkey || $gbViewPublic ) {
  <tr>
    <td style="vertical-align: top;"> <a id=filterbtn href="toggle" onclick="toggleSearchForm();return false;">filter &rsaquo;&rsaquo;</a> </td>
    <td> 
-<div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px; margin-bottom: 20px;">
+<div id=searchform style="display: $sDisplay; border: 1px solid #AAA; padding: 4px; margin-left: 8px; margin-bottom: 10px;">
 <form>
 <table id=search cellpadding=0 cellspacing=0 border=0>
   <tr> <td class=label>App:</td> <td><input type=text size=35 name=app value="$pApp"></td> <td></td> </tr>
@@ -87,6 +87,7 @@ if ( $gAuthkey || $gbViewPublic ) {
   </td>
  </tr>
 </table>
+
 OUTPUT;
 
 	$query = "select dataid, public, createDate, referer, appname, title, browser, version, summary from data where " .
@@ -99,11 +100,10 @@ OUTPUT;
 		while ( $row = mysql_fetch_assoc($result) ) {
 			if ( $bFirst ) {
 				$bFirst = false;
-				echo "<div style='width: 1200px;'>\n" .
-					"<table id=results class=tablesort cellpadding=0 cellspacing=0 border=0>\n" .
+				echo "<table id=results class=tablesort cellpadding=0 cellspacing=0 border=0 style='background: #F0F0F0; margin-top: 10px;'>\n" .
 					"<tr> <th>Date</th> <th>JSON</th> " .
-					( $gbViewPublic ? "" : "<th>Public</th> " ) .
-					"<th>App</th> <th style='width: 300px;'>Website</th> <th>Summary</th> <th>Browser</th> </tr>\n";
+					( $gbViewPublic ? "" : "<th class=notablesort>Public</th> " ) .
+					"<th>App</th> <th>Website</th> <th>Summary</th> <th>Browser</th> </tr>\n";
 			}
 			$dataid = $row['dataid'];
 			$checked = ( $row['public'] ? " checked" : "" );
@@ -115,20 +115,19 @@ OUTPUT;
 			$version = ( $version ? " $version" : "" );
 			$summary = $row['summary'];
 			$browser = parseUserAgent($row['browser']);
-			$title = $row['title'];
-			$title = substr(( $title ? $title : $url ), 0, 64);
-			echo "  <tr id=$dataid> <td><nobr>$date</nobr></td> " .
-				"<td style='text-align: center;'><a class=jsonlink href='view?id=$dataid'>view</a> <a class=jsonlink href='export?id=$dataid'>export</a> " .
-				( $gbViewPublic ? "" : "<a href='#' onclick='doDelete($dataid); return false' class=removelink style='font-weight: bold;' title='remove'>X</a></td> " ) .
+			$titlelong = ( $row['title'] ? $row['title'] : $url );
+			$titleshort = (strlen($titlelong) > 27 ? substr($titlelong, 0, 24) . "..." : $titlelong );
+			echo "  <tr id=$dataid> <td>$date</td> " .
+				"<td style='text-align: center;'><nobr><a href='view?id=$dataid' title='View'><img src='images/view.gif'></a>&nbsp;&nbsp;<a href='export?id=$dataid' title='Export'><img src='images/export2.png'></a>" .
+				( $gbViewPublic ? "</nobr></td> " : "&nbsp;&nbsp;<a href='#' onclick='doDelete($dataid); return false' title='Remove'><img src='images/remove2.gif'></a></nobr></td> " ) .
 				( $gbViewPublic ? "" : "<td style='text-align: center;'><input type=checkbox name=public$checked onclick='togglePublic($dataid, \"$checked\", this)'></td> " ) .
-				"<td><nobr>$appname$version</nobr></td> <td><a href='$url'>$title</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
+				"<td>$appname$version</td> <td><a href='$url' title='$titlelong'>$titleshort</a></td> <td>$summary</td> <td><nobr>$browser</nobr></td>" .
 				" </tr>\n";
 		}
 		mysql_free_result($result);
 		if ( ! $bFirst ) {
 			echo <<<OUTPUT
 </table>
-</div> <!-- wide div -->
 
 <script type="text/javascript">
 function toggleSearchForm() {
