@@ -14,15 +14,15 @@ contains bookmarklets that have been converted to use Jdrop.
 </p>
 
 <style>
-OL, OL LI { margin: 0 0 0 10px; padding: 0; }
+OL, OL LI { margin-left: 10px; }
+OL { list-style-position: outside; }
 </style>
 <table cellpadding=0 cellspacing=0 border=0 style="margin-left: 20px;">
 <tr>
 <td valign=top style="padding-right: 8px;"><strong>DESKTOP:</strong></td>
 <td valign=top>Drag this link to your bookmarks toolbar or add it to your favorites:
 <div>
-<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop
-<img border=0 src="http://stevesouders.com/mobileperf/drag-this-link-107x32.png" width=107 height=32 style="vertical-align: bottom;"></a>
+<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm-jdrop.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop</a>
 </div>
 </td>
 </tr>
@@ -48,7 +48,8 @@ OL, OL LI { margin: 0 0 0 10px; padding: 0; }
 </table>
 
 
-
+<?php
+/*
 <p style="margin-top: 100px;">
 If needed, here are links to the individual bookmarklets for mobile.
 </p>
@@ -89,7 +90,8 @@ If needed, here are links to the individual bookmarklets for mobile.
 </tr>
 
 </table>
-
+*/
+?>
 
 <?php
 
