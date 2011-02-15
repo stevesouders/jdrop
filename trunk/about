@@ -10,7 +10,11 @@ ui_head("About");
 
 ?>
 
-<ul class='inline'>
+<?php
+insertAbout();
+?>
+
+<ul class='inline aboutlinks'>
     <li> <a href="http://groups.google.com/group/jdrop/topics">Contact us</a>
     <li> <a href="http://code.google.com/p/jdrop/source/browse">Source code</a>
     <li> <a href="http://code.google.com/p/jdrop/issues/list">Bug list</a>
@@ -18,7 +22,6 @@ ui_head("About");
 </ul>
 
 <?php
-insertAbout();
 insertHowTo();
 
 $qlist = "";
@@ -26,7 +29,7 @@ $qs = "";
 foreach(array(
     array("Who created Jdrop?",
         "who",
-        "Jdrop was created by <a href='http://stevesouders.com/'>Steve Souders</a>. <a href='http://tripleodeon.com/'>James Pearce</a> helped out."
+        "<a href='http://stevesouders.com/'>Steve Souders</a> created Jdrop. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily adding <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> and the UI implementation. <a href='http://www.dmdesigninc.com/'>Dave McClinton</a> created the design."
     ),
     array("How do I convert my bookmarklet or app to use Jdrop?",
         "devdocs",
