@@ -64,7 +64,7 @@ if ( $gAuthkey || $gbViewPublic ) {
 #search TD { padding: 2px 4px; font-size: 0.9em; }
 #results TH { border-bottom: 1px solid #000; padding: 12px 4px; }
 #results TD { border-bottom: 1px solid #CCC; padding: 2px 8px; font-size: 0.9em; vertical-align: middle; }
-#filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: bold; font-size: 16px; text-decoration: none; border: 1px solid #C66300; color: #FFF; padding: 2px 4px; background: #C66300; }
+#filterbtn { font-family: "HelveticaNeue-Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; text-decoration: none; border: 1px solid #C66300; color: #FFF; padding: 2px 4px; background: #C66300; }
 #filterbtn:hover { background: #E70; border: 1px solid #E03105; }
 .jsonlink { background: #F9F9F9; padding: 0 2px; border: 1px solid #D6C8BA; text-decoration: none; color: #630; font-size: 0.9em; margin: 0 0.2em 0 0.2em; }
 .jsonlink:hover { background: #C66300; color: #FFF; }
