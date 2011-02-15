@@ -22,7 +22,7 @@ OL { list-style-position: outside; }
 <td valign=top style="padding-right: 8px;"><strong>DESKTOP:</strong></td>
 <td valign=top>Drag this link to your bookmarks toolbar or add it to your favorites:
 <div>
-<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop</a>
+<a style="font-size: 1.2em;" href="javascript:(function(){var%20jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf</a>
 </div>
 </td>
 </tr>
@@ -36,7 +36,7 @@ OL { list-style-position: outside; }
 <td valign=top>
 <div>
 <ol>
-  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf with Jdrop</a>
+  <li> click this link: <a href="#javascript:(function(){jselem=document.createElement('SCRIPT');jselem.type='text/javascript';jselem.src='http://stevesouders.com/mobileperf/mobileperfbkm.js';document.getElementsByTagName('body')[0].appendChild(jselem);})();">Mobile Perf</a>
   <li> bookmark this page
   <li> edit the bookmark URL and remove everything up to and including the hash ("<code>&#35;</code>") so that the bookmark URL starts with "<code>javascript:</code>"
 </ol>
