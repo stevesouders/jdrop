@@ -188,9 +188,10 @@ ul.inline li {
 }
 ul.inline a {
   text-decoration: none;
-  font-weight: bold;
+  font-weight: normal;
+  font-family:"trebuchet MS",tahoma,helvetica,sans-serif;
   background: #fa711c;
-  color:#000;
+  color:#FFF;
   padding: 4px 8px;
   margin-right: 4px;
 }
