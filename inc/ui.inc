@@ -10,7 +10,7 @@ function ui_head($title) { // in lieu of decent templating
   print "<meta name='keywords' content='mobile json phone developer software development debug performance' />";
   ui_style();
   print "</head><body>";
-  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header><nav><ul class=navlinks>";
+  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header><nav><ul>";
   ui_nav();
   print "</ul></nav><article>";
   ui_account();
