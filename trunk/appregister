@@ -51,6 +51,7 @@ else if ( "remove" === $action ) {
 #addform { margin-top: 40px; }
 #addform TD { font-size: 0.9em; padding: 4px; border: 0; }
 #applist { margin-top: 40px; }
+#applist TD, #applist TH { padding-left: 8px; font-size: 0.9em; padding-bottom: 8px; }
 </style>
 
 <div>
@@ -75,9 +76,8 @@ if ( $result ) {
 		if ( $bFirst ) {
 			$bFirst = false;
 			echo <<<OUTPUT
-<div style="width: 1200px;">
 <table id=applist cellpadding=0 cellspacing=0 border=0>
-  <tr> <th>App Name</th> <th>Script URL</th> <th>Callback Function</th> <th>Format</th> <th>Format Key</th> <th>&nbsp;</th> </tr>
+  <tr> <th>App Name</th> <th style="">Script URL</th> <th>Callback Function</th> <th>Format</th> <th>Format Key</th> <th>&nbsp;</th> </tr>
 OUTPUT;
 		}
 		$appname = $row['appname'];
@@ -85,11 +85,11 @@ OUTPUT;
 		$callback = $row['callback'];
 		$format = $row['format'];
 		$formatkey = $row['formatkey'];
-		echo "  <tr id='$appname'> <td>$appname</td> <td><a href='$jsurl'>$jsurl</a></td> <td>$callback</td> <td>$format</td> <td>$formatkey</td> <td><a href='#' onclick='doEdit(\"$appname\");return false;'>edit</a> &nbsp;&nbsp; <a href='appregister?action=remove&appname=$appname' onclick='return confirmEdit()'>remove</a></td> </tr>\n";
+		echo "  <tr id='$appname'> <td>$appname</td> <td><a href='$jsurl'>$jsurl</a></td> <td>$callback</td> <td>$format</td> <td>$formatkey</td> <td><a href='#' onclick='doEdit(\"$appname\");return false;'>edit</a><br><a href='appregister?action=remove&appname=$appname' onclick='return confirmEdit()'>remove</a></td> </tr>\n";
 	}
 	mysql_free_result($result);
 	if ( ! $bFirst ) {
-		echo "</table>\n</div>\n\n";
+		echo "</table>\n\n";
 	}
 }
 ?>
