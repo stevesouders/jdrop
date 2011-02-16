@@ -71,7 +71,7 @@ function ui_account() {
 						   'Twitter'=>'twitter',
 						   'Google'=>'google'
 						   ) as $name=>$type) {
-				print "<li><a href='oauth/twitter' class='$type login'>$name</a></li>";
+				print "<li><a href='oauth/$type' class='$type login'>$name</a></li>";
 			}
 			print "</ul><p>If you don't want to login,<br/>you can also <a href='/public'>view public JSON</a></p>";
 		}
