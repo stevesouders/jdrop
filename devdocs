@@ -43,9 +43,12 @@ echo file_get_contents("jdrop-example.js");
 </pre>
 </div>
 
-
-<ol>
-  <li> <h3>SaveToJdrop</h3>
+<style>
+#steps { margin-bottom: 10px; list-style-position: outside; margin-left: 20px; }
+#steps LI { margin-top: 10px; }
+</style>
+<ol id=steps>
+  <li> <strong>SaveToJdrop</strong>
 <div>
 Typically bookmarklets do two things: gather data and display data.
 Package up that data in a single object and pass it to <code>SaveToJdrop</code> along with the name of your bookmarklet and a version number.
@@ -55,20 +58,20 @@ That way, your rendering code can be backward compatible if the JSON format chan
 The <code>version</code> param is just a string, for example, <code>1.1.3</code>.
 </div>
 
-  <li> <h3>JdropCallback</h3>
+  <li> <strong>JdropCallback</strong>
 <div>
-Write a callback function that takes you data object and displays it in an empty page.
+Write a callback function that takes your data object and displays it in an empty page.
 This function will be used in the <a href="view">Jdrop view page</a>.
 </div>
 
-  <li> <h3>is JDROPVIEW defined?</h3>
+  <li> <strong>is JDROPVIEW defined?</strong>
 <div>
 When your bookmarklet code is used in the <a href="view">Jdrop view page</a> to render the data,
 you don't want the bookmarklet analysis code to run.
 That's accomplished by only doing the bookmarklet analysis if <code>JDROPVIEW</code> is undefined.
 </div>
 
-  <li> <h3>JSON</h3>
+  <li> <strong>JSON</strong>
 <div>
 Include a definition of JSON for browsers that don't have it. I minify the code from
 <a href="http://www.json.org/js.html">json2.js</a> and inline that in my bookmarklet.
@@ -83,7 +86,7 @@ Something like this:
 </p>
 <div style="margin-left: 40px;">
 <pre class=scrollcode>
-&lt;a href="javascript:SaveToJdrop('MY APP NAME', myDataObj, '1.1.3')"&gt;Save to Jdrop&lt;/a&gt;
+&lt;a href="javascript:SaveToJdrop('MY APP NAME', myDataObj, '1.1.3', '1.8 secs')"&gt;Save to Jdrop&lt;/a&gt;
 </pre>
 </div>
 
