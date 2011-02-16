@@ -32,13 +32,13 @@ function insertHowTo() { ?>
   <h2>How to use Jdrop...</h2>
   <h3> On your mobile device:</h3>
   <ul>
-    <li> Sign in to Jdrop </li>
+    <li> sign in to Jdrop </li>
     <li> install any of the <a href="apps">apps</a> that use Jdrop</li>
     <li> run the app and save data to Jdrop</li>
   </ul>
   <h3> On your desktop or laptop:</h3>
   <ul>
-    <li> Sign in to Jdrop </li>
+    <li> sign in to Jdrop </li>
     <li> view the <a href="myjson">JSON data</a> that you generated</li>
   </ul>
 <?php }
