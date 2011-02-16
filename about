@@ -42,23 +42,39 @@ insertAbout();
 <?php
 insertHowTo();
 
+$aQs =
+	array(
+		  /*
+		  array("xxx",
+				"xxx",
+				"xxx"
+				),
+		  */
+		  array("How much does Jdrop cost?",
+				"cost",
+				"Jdrop is free."
+				),
+		  array("Why does Jdrop ask for access to my Google Contacts when connecting via a Google Account?",
+				"googleoauth",
+				"Jdrop uses Oauth for authentication. Oauth to Google requires mentioning a service to authenticate with. Jdrop doesn't actually access any of your contacts. We're looking at OpenID instead of Oauth as a way to bypass this step."
+				),
+		  array("How do I convert my bookmarklet or app to use Jdrop?",
+				"devdocs",
+				"Instructions for integrating with Jdrop can be found in our <a href='devdocs'>Dev Docs</a>."
+				),
+		  array("Who created Jdrop?",
+				"who",
+				"<a href='http://stevesouders.com/'>Steve Souders</a> created Jdrop. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily adding <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> and the UI implementation. <a href='http://www.dmdesigninc.com/'>Dave McClinton</a> created the design."
+				),
+		  array("Who do I contact for more information?",
+				"contact",
+				"You can reach the Jdrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>Jdrop discussion list</a>."
+				)
+		  );
 $qlist = "";
 $qs = "";
-foreach(array(
-    array("Who created Jdrop?",
-        "who",
-        "<a href='http://stevesouders.com/'>Steve Souders</a> created Jdrop. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily adding <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> and the UI implementation. <a href='http://www.dmdesigninc.com/'>Dave McClinton</a> created the design."
-    ),
-    array("How do I convert my bookmarklet or app to use Jdrop?",
-        "devdocs",
-        "Instructions for integrating with Jdrop can be found in our <a href='devdocs'>Dev Docs</a>."
-    ),
-    array("Who do I contact for more information?",
-        "contact",
-        "You can reach the Jdrop team by submitting a post to the <a href='http://groups.google.com/group/jdrop/topics'>Jdrop discussion list</a>."
-    )
-) as $q) {
-    list($question, $link, $answer) = $q;
+foreach($aQs as $q) {
+    list($question, $anchor, $answer) = $q;
 	$qlist .= "<li><a href='#$anchor'>$question</a></li>";
 	$qs .= "<a name='$anchor'></a><h3>$question</h3><p>$answer</p>";
 }
