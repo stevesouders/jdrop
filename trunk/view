@@ -44,7 +44,7 @@ if ( ! $dataid ) {
 	echo '<p class=warning>Select some data to view from your <a href="myjson">My JSON</a> list.</p>';
 }
 else {
-	$row = doRowQuery("select createDate, referer, appname, json, title, browser, public from $gDataTable where dataid=$dataid;");
+	$row = doRowQuery("select createDate, referer, appname, json, title, browser, authkey, public from $gDataTable where dataid=$dataid;");
 	if ( $row ) {
 		$date = $row['createDate'];
 		$date = date("n/j/Y H:i", $date);
@@ -54,11 +54,17 @@ else {
 		$appname = $row['appname'];
 		$json = $row['json'];
 		$json = str_ireplace('</script>', '<\/script>', $json); // needed this for Docsource
+		$authkey = $row['authkey'];
 		$bPublic = $row['public'];
 	}
 
-	if ( ! $gAuthkey && ! $bPublic ) {
-		echo '<p class=warning>Please "login" to view results.</p>';
+	if ( $gAuthkey != $authkey && ! $bPublic ) {
+		if ( ! $gAuthkey ) {
+			echo '<p class=warning>Please "login" to view results.</p>';
+		}
+		else {
+			echo '<p class=warning>You do not have access to this data.</p>';
+		}
 	}
 	else {
 		$row = doRowQuery("select jsurl, callback from apps where appname='$appname';");
