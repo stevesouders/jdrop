@@ -34,17 +34,28 @@ $gFormats = array(
 				  "JSON" => array("application/json", "txt")
 				  );
 
-if ( $gAuthkey && $dataid ) {
-	$row = doRowQuery("select $gDataTable.appname, json, version, format, formatkey from $gDataTable, $gAppsTable where authkey='$gAuthkey' and dataid=$dataid and $gDataTable.appname = $gAppsTable.appname;");
+if ( $dataid ) {
+	$row = doRowQuery("select authkey, $gDataTable.appname, json, version, format, formatkey, public from $gDataTable, $gAppsTable where dataid=$dataid and $gDataTable.appname = $gAppsTable.appname;");
 	if ( $row ) {
+		$authkey = $row['authkey'];
 		$appname = $row['appname'];
 		$json = $row['json'];
 		$version = $row['version'];
 		$format = $row['format'];
 		$formatkey = $row['formatkey'];
+		$bPublic = $row['public'];
 		list($contentType, $fileExt) = getFormat($format);
 
-		if ( $json && $appname && $contentType) {
+		if ( $gAuthkey != $authkey && ! $bPublic ) {
+			// TODO - need better UI for error page
+			if ( ! $gAuthkey ) {
+				echo '<p class=warning>Please "login" to view results.</p>';
+			}
+			else {
+				echo '<p class=warning>You do not have access to this data.</p>';
+			}
+		}
+		else if ( $json && $appname && $contentType) {
 			$filename = $appname . "_$dataid.$fileExt";
 			header("Content-Type: $contentType; name=\"$filename\""); 
 			header("Content-Disposition: inline; filename=\"$filename\"");
