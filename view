@@ -39,15 +39,12 @@ if ( array_key_exists("HTTP_REFERER", $_SERVER) ) {
 ?>
 
 <?php 
-if ( ! $gAuthkey ) {
-	echo <<<OUTPUT
-<p class=warning>
-Please "login" to view results.
-</p>
-OUTPUT;
+if ( ! $dataid ) {
+	// no $dataid
+	echo '<p class=warning>Select some data to view from your <a href="myjson">My JSON</a> list.</p>';
 }
-else if ( $dataid ) {
-	$row = doRowQuery("select createDate, referer, appname, json, title, browser from $gDataTable where dataid=$dataid;");
+else {
+	$row = doRowQuery("select createDate, referer, appname, json, title, browser, public from $gDataTable where dataid=$dataid;");
 	if ( $row ) {
 		$date = $row['createDate'];
 		$date = date("n/j/Y H:i", $date);
@@ -57,16 +54,21 @@ else if ( $dataid ) {
 		$appname = $row['appname'];
 		$json = $row['json'];
 		$json = str_ireplace('</script>', '<\/script>', $json); // needed this for Docsource
+		$bPublic = $row['public'];
 	}
 
-	$row = doRowQuery("select jsurl, callback from apps where appname='$appname';");
-	if ( $row ) {
-		$jsurl = $row['jsurl'];	
-		$callback = $row['callback'];	
+	if ( ! $gAuthkey && ! $bPublic ) {
+		echo '<p class=warning>Please "login" to view results.</p>';
 	}
+	else {
+		$row = doRowQuery("select jsurl, callback from apps where appname='$appname';");
+		if ( $row ) {
+			$jsurl = $row['jsurl'];	
+			$callback = $row['callback'];	
+		}
 
-	if ( $appname && $json && $jsurl && $callback ) {
-		echo <<<OUTPUT
+		if ( $appname && $json && $jsurl && $callback ) {
+			echo <<<OUTPUT
 <p>
 app: $appname
 <br>
@@ -95,15 +97,8 @@ catch(err) {
 </script>
 		
 OUTPUT;
+		}
 	}
-}
-else {
-	// no $dataid
-	echo <<<OUTPUT
-<p class=warning>
-Select some data to view from your <a href="myjson">My JSON</a> list.
-</p>
-OUTPUT;
 }
 
 ui_foot();
