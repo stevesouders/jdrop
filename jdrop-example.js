@@ -40,7 +40,7 @@ function SaveToJdrop(appname, myDataObj, version, summary) {
 	jdropform.method = "post";
 	jdropform.action = "http://jdrop.org/save";
 	jdropform.target = "jdropiframe";
-	jdropform.style.display = "hidden";
+	jdropform.style.display = "none";
 
 	// add each param to the form as an input field
 	for (var key in params) {
