@@ -64,7 +64,7 @@ $aQs =
 				),
 		  array("Who created Jdrop?",
 				"who",
-				"<a href='http://stevesouders.com/'>Steve Souders</a> created Jdrop. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily adding <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> and the UI implementation. <a href='http://www.dmdesigninc.com/'>Dave McClinton</a> created the design."
+				"<a href='http://stevesouders.com/'>Steve Souders</a> created Jdrop. <a href='http://tripleodeon.com/'>James Pearce</a> contributed heavily adding <a href='http://code.google.com/p/oauth-php/'>oauth-php</a> and the UI implementation. <a href='http://www.dmdesigninc.com/'>Dave McClinton</a> created the design. <a href='http://www.jethrolarson.com/'>Jethro Larson</a> submitted the first patch."
 				),
 		  array("Who do I contact for more information?",
 				"contact",
