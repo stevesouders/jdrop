@@ -22,13 +22,14 @@ ini_set('display_errors');
 header("Content-type:text/html");
 
 function ui_head($title) { // in lieu of decent templating
-  print "<!DOCTYPE html><html><head>";
-  print "<title>Jdrop | $title</title>";
-  print "<meta http-equiv='content-type' content='text/html; charset=UTF-8' />";
-  print "<meta name='keywords' content='mobile json phone developer software development debug performance' />";
+  print "<!DOCTYPE html><html>\n<head>\n";
+  print "<title>Jdrop | $title</title>\n";
+  print "<meta http-equiv='content-type' content='text/html; charset=UTF-8' />\n";
+  print "<meta name='viewport' content='width=device-width,initial-scale=1.0'>\n";
+  print "<meta name='keywords' content='mobile json phone developer software development debug performance' />\n";
   ui_style();
-  print "</head><body>";
-  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header><nav><ul>";
+  print "</head>\n<body>\n";
+  print "<header><hgroup><h1>Jdrop</h1><h2>JSON in the cloud</h2></hgroup></header>\n<nav>\n<ul>";
   ui_nav();
   print "</ul></nav><article>";
   ui_account();
