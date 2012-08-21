@@ -13,7 +13,7 @@ Options -Indexes
 # Compress html, XML, css and js and fonts
 AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript application/javascript font/ttf application/octet-stream
 
-<FilesMatch "(about|admin|appregister|apps|devdocs|export|home|logout|myjson|oauth|public|publish|remove|save|view|google|twitter)">
+<FilesMatch "(about|admin|appregister|apps|devdocs|example|export|home|logout|myjson|oauth|public|publish|remove|save|view|google|twitter)">
   SetHandler application/x-httpd-php5
   Header set Cache-Control "no-cache"
 </FilesMatch>
