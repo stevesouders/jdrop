@@ -29,7 +29,7 @@ if ( !isset($gbViewPublic) ) {
 	$gbViewPublic = false;
 }
 
-$gMaxRows = ( $gMaxRows ? $gMaxRows : 1000 );
+$gMaxRows = ( isset($gMaxRows) ? $gMaxRows : 1000 );
 
 if ( $gAuthkey || $gbViewPublic ) {
 	$pApp = ( array_key_exists("app", $_GET) ? $_GET["app"] : "" );
