@@ -18,7 +18,7 @@ See the source code here:
      http://code.google.com/p/jdrop/
 */
 
-ini_set('display_errors');
+ini_set('display_errors', 'stderr');
 header("Content-type:text/html");
 
 function ui_head($title) { // in lieu of decent templating
