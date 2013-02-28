@@ -258,7 +258,7 @@ function parseUserAgent($useragent, &$browser=NULL, &$v1=NULL, &$v2=NULL, &$v3=N
 		$v3 = $regs[3];
 	}
 	else if ( ereg("iPad.*CPU OS ([0-9]+)_([0-9]+).*Mobile/(.*) Safari", $useragent, $regs) ) {
-		$browser = "iPad " . ( "9A405" === $regs[4] ? "1" : "2" );
+		$browser = "iPad " . ( "9A405" === $regs[3] ? "1" : "2" );
 		$v1 = $regs[1];
 		$v2 = $regs[2];
 	}
