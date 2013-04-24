@@ -69,8 +69,8 @@ function ui_account() {
 		} else {
 			print "out'><h3>Sign in with an online account</h3><ul>";
 			foreach (array(
-						   'Twitter'=>'twitter',
-						   'Google'=>'google'
+						   //'Google'=>'google',
+						   'Twitter'=>'twitter'
 						   ) as $name=>$type) {
 				print "<li><a href='oauth/$type' class='$type login'>$name</a></li>";
 			}
