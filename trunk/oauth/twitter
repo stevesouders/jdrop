@@ -27,7 +27,7 @@ if(!isset($_GET['oauth_token'])) { # stage 1
   $request = new OAuthRequester(
     'https://api.twitter.com/oauth/access_token',
     'POST',
-    array('oauth_token' => $_GET['oauth_token'])
+    array('oauth_token' => $_GET['oauth_token'], 'oauth_verifier' => $_GET['oauth_verifier'])
   );
   $result = $request->doRequest(0);
   parse_str($result['body']);
